@@ -4,6 +4,13 @@ Recompute a captured ZED calibration sequence's depth with FoundationStereo and
 solve the extrinsics twice — once with ZED SDK depth, once with FS depth — so
 the two solutions can be compared as a consistency metric.
 
+> **Depth-correction update (2026-08-19):** the correction is now offset+scale
+> (`disp_true = a·disp + d`, a=1.012, d=5.7 in the json) and the CLI flags were
+> renamed to `--d` / `--a` (old spellings still work as aliases). Commands below
+> that pass `--disparity-offset-px 5.9` are from the constant-offset era; today
+> just omit the flag and the json defaults apply. Full story:
+> `zed_capture/README_depth_correction.md`.
+
 ## Workflow
 
 ```bash

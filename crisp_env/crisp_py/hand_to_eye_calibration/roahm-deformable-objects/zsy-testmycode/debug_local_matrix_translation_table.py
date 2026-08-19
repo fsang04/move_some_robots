@@ -63,7 +63,7 @@ def set_depth_corrector(corrector):
     _DEPTH_CORRECTOR = corrector
 
 EXPECTED_TAG_ID = 3
-TAG_SIZE_M = 0.0955   # measured with calipers 2026-08-19; was wrongly assumed 0.093
+TAG_SIZE_M = 0.0950   # measured with calipers 2026-08-19 (re-verified); was wrongly assumed 0.093
 
 
 # ============================================================

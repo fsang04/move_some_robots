@@ -46,7 +46,7 @@ DATAPATH = (
 )
 
 EXPECTED_TAG_ID = 3
-TAG_SIZE_M = 0.0955   # measured with calipers 2026-08-19; was wrongly assumed 0.093
+TAG_SIZE_M = 0.0950   # measured with calipers 2026-08-19 (re-verified); was wrongly assumed 0.093
 
 
 # ============================================================
@@ -413,11 +413,18 @@ def main():
     )
     parser.add_argument("--depth-patch-radius", type=int, default=5)
     parser.add_argument(
-        "--disparity-offset-px", type=float, default=None,
-        help="ZED depth disparity-offset correction, in pixels. Default: the value in "
-             f"zed_capture/zed_depth_correction.json (currently "
+        "--d", "--disparity-offset-px", dest="disparity_offset_px",
+        type=float, default=None,
+        help="ZED disparity offset d, in pixels (model: disp_true = a*disp + d). "
+             f"Default: zed_capture/zed_depth_correction.json (currently "
              f"{zed_depth_config.offset_px():.2f} px). Pass 0 to see the raw depth "
              "error. Ignored for --camera azure.")
+    parser.add_argument(
+        "--a", "--disparity-scale", dest="disparity_scale",
+        type=float, default=None,
+        help="ZED disparity scale a, dimensionless. Default: "
+             f"zed_capture/zed_depth_correction.json (currently "
+             f"{zed_depth_config.scale():.4f}). Pass 1 to disable the stretch.")
 
     args = parser.parse_args()
 
@@ -439,13 +446,15 @@ def main():
         _fx, _fy, _cx, _cy = _camera_params_for(args.camera, _dw, _dh)
         set_depth_intrinsics(_fx, _fy, _cx, _cy)
 
-        # Undo the ZED disparity offset, or this comparison measures the fault
+        # Undo the ZED disparity error, or this comparison measures the fault
         # instead of the difference between the two translation sources.
+        _rgbd = calib_base_dir / f"{side}_calibration_rgbd.npz"
         set_depth_corrector(zed_depth_config.corrector_for(
             args.camera, _fx, unit="mm",
             offset_px_override=args.disparity_offset_px,
-            already_applied_px=zed_depth_config.dataset_applied_offset_px(
-                calib_base_dir / f"{side}_calibration_rgbd.npz"),
+            scale_override=args.disparity_scale,
+            already_applied_px=zed_depth_config.dataset_applied_offset_px(_rgbd),
+            already_applied_scale=zed_depth_config.dataset_applied_scale(_rgbd),
         ))
 
     if not frames_dir.exists():

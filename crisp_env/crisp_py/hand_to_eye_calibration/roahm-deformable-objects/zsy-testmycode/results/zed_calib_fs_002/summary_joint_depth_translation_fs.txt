@@ -1,0 +1,26 @@
+Joint two-arm solve, seq zed_calib_fs_002
+translation_mode: depth_translation_fs
+T_LR (solved: inv(X_L_free) @ X_R_free):
+[[-0.9997 0.0184 -0.0145 1.2627]
+ [-0.0186 -0.9998 0.0107 -0.0079]
+ [-0.0143 0.0110 0.9998 0.0008]
+ [0.0000 0.0000 0.0000 1.0000]]
+
+residuals ALL  : trans  3.12 / med  3.15 / max  7.31 mm   rot 0.644 / max 1.864 deg   (n=139)
+residuals left : trans  3.02 / med  2.69 / max  7.31 mm   rot 0.497 / max 1.303 deg   (n=67)
+residuals right: trans  3.22 / med  3.25 / max  5.06 mm   rot 0.782 / max 1.864 deg   (n=72)
+
+X_cam_left_base:
+[[0.9994 -0.0349 -0.0055 -0.6098]
+ [-0.0098 -0.1234 -0.9923 0.2255]
+ [0.0340 0.9917 -0.1236 1.5029]
+ [0.0000 0.0000 0.0000 1.0000]]
+
+X_cam_right_base = X @ T_LR:
+[[-0.9984 0.0532 -0.0204 0.6524]
+ [0.0263 0.1123 -0.9933 0.2133]
+ [-0.0506 -0.9922 -0.1135 1.5379]
+ [0.0000 0.0000 0.0000 1.0000]]
+
+disparity_offset_px: 5.7
+disparity_scale: 1.012

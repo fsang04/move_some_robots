@@ -1,0 +1,24 @@
+Nonlinear calibration result
+side: left
+seq: zed_calib_fs_002
+use_depth_translation: True
+rgbd_file: left_calibration_rgbd_fs.npz
+valid_indices: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69]
+outliers: []
+npz: /home/yizhouch/move_some_robots/crisp_env/crisp_py/hand_to_eye_calibration/roahm-deformable-objects/zsy-testmycode/results/zed_calib_fs_002/base2cam_transform_left_nonlinear_opt_depth_translation_fs.npz
+
+Optimized residuals:
+Translation error mean/std/max: 3.06 / 1.68 / 7.22 mm   [ALL 65 frames]
+Rotation error mean/std/max: 0.502 / 0.228 / 1.304 deg   [ALL 65 frames]
+
+X_cam_base:
+[[0.9994 -0.0349 -0.0055 -0.6098]
+ [-0.0098 -0.1235 -0.9923 0.2254]
+ [0.0340 0.9917 -0.1238 1.5031]
+ [0.0000 0.0000 0.0000 1.0000]]
+
+X_base_cam = inv(X_cam_base):
+[[0.9994 -0.0098 0.0340 0.5606]
+ [-0.0349 -0.1235 0.9917 -1.4841]
+ [-0.0055 -0.9923 -0.1238 0.4063]
+ [0.0000 0.0000 0.0000 1.0000]]

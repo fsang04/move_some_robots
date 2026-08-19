@@ -69,22 +69,24 @@ import zed_depth_config
 from apriltag_image import _camera_params_for
 
 
-def build_side(base, side, max_images, offset_px=None, use_depth_translation=True,
-               rgbd_file=None):
+def build_side(base, side, max_images, offset_px=None, scale=None,
+               use_depth_translation=True, rgbd_file=None):
     if use_depth_translation:
         # Depth intrinsics + disparity correction are only needed when depth
         # becomes the translation; the apriltag mode never touches the stack.
-        # The disparity offset applies to FoundationStereo depth (rgbd_file
+        # The disparity correction applies to FoundationStereo depth (rgbd_file
         # *_fs.npz) exactly as to SDK depth: it is baked into the rectified
         # images both matchers consume.
         dp = _load_depth_stack(base, side, rgbd_file)
         dh, dw = int(dp.shape[1]), int(dp.shape[2])
         fx, fy, cx, cy = _camera_params_for('zed', dw, dh)
         set_depth_intrinsics(fx, fy, cx, cy)
+        rgbd_path = base / (rgbd_file or f'{side}_calibration_rgbd.npz')
         set_depth_corrector(zed_depth_config.corrector_for(
             'zed', fx, unit='mm', offset_px_override=offset_px,
-            already_applied_px=zed_depth_config.dataset_applied_offset_px(
-                base / (rgbd_file or f'{side}_calibration_rgbd.npz'))))
+            scale_override=scale,
+            already_applied_px=zed_depth_config.dataset_applied_offset_px(rgbd_path),
+            already_applied_scale=zed_depth_config.dataset_applied_scale(rgbd_path)))
     Tc, Tb, vi, _, _ = _build_calibration_pairs(
         max_images=max_images, image_dir=base / 'frames',
         pose_file=base / f'{side}_calibration_poses.npz',
@@ -116,7 +118,7 @@ def fmt(s):
 
 
 def resolve_t_lr(mode, res_dir, baseline_x, t_lr_npz, mode_name='depth_translation',
-                 applied_offset_px=None):
+                 applied_offset_px=None, applied_scale=None):
     """-> (T_LR 4x4, description string). T_LR maps right-base coords to
     left-base coords (the right base's pose expressed in the left base frame).
 
@@ -138,9 +140,14 @@ def resolve_t_lr(mode, res_dir, baseline_x, t_lr_npz, mode_name='depth_translati
                 if 'disparity_offset_px' not in d:
                     continue
                 stamped = float(d['disparity_offset_px'])
-                if abs(stamped - applied_offset_px) > 1e-6:
-                    print(f'[WARN] {f.name} was solved at {stamped:+.2f} px but this '
-                          f'joint run corrects depth at {applied_offset_px:+.2f} px '
+                stamped_a = (float(d['disparity_scale'])
+                             if 'disparity_scale' in d else 1.0)
+                want_a = 1.0 if applied_scale is None else float(applied_scale)
+                if (abs(stamped - applied_offset_px) > 1e-6
+                        or abs(stamped_a - want_a) > 1e-9):
+                    print(f'[WARN] {f.name} was solved at a={stamped_a:.4f}, '
+                          f'd={stamped:+.2f} px but this joint run corrects depth '
+                          f'at a={want_a:.4f}, d={applied_offset_px:+.2f} px '
                           '-- its bias differs from the pairs being fit.')
 
     if mode == 'file':
@@ -180,13 +187,20 @@ def main():
     p.add_argument('--baseline-x', type=float, default=1.2748)
     p.add_argument('--rot-weight', type=float, default=573.0)
     p.add_argument('--trans-weight', type=float, default=1000.0)
-    p.add_argument('--disparity-offset-px', type=float, default=None,
-                   help='ZED depth disparity-offset correction, in pixels, for BOTH '
-                        'arms. Default: the value in zed_capture/zed_depth_correction.json '
+    p.add_argument('--d', '--disparity-offset-px', dest='disparity_offset_px',
+                   type=float, default=None,
+                   help='ZED disparity offset d, in pixels, for BOTH arms (model: '
+                        'disp_true = a*disp + d). Default: '
+                        'zed_capture/zed_depth_correction.json '
                         f'(currently {zed_depth_config.offset_px():.2f} px). Must match '
-                        'the offset used for the free per-arm solves that --t-lr solved '
-                        'reads, or T_LR and the pairs disagree. Ignored with '
+                        'the correction used for the free per-arm solves that --t-lr '
+                        'solved reads, or T_LR and the pairs disagree. Ignored with '
                         '--no-depth-translation.')
+    p.add_argument('--a', '--disparity-scale', dest='disparity_scale',
+                   type=float, default=None,
+                   help='ZED disparity scale a, dimensionless, for BOTH arms. '
+                        'Default: zed_capture/zed_depth_correction.json '
+                        f'(currently {zed_depth_config.scale():.4f}).')
     p.add_argument('--no-depth-translation', action='store_true',
                    help='use the AprilTag pose translation instead of depth for '
                         'T_cam_tag (the joint counterpart of the per-arm solver run '
@@ -227,23 +241,28 @@ def main():
         print('[WARN] --disparity-offset-px is ignored with --no-depth-translation '
               '(this solve never touches depth).')
 
-    applied_off = None
+    applied_off = applied_scale = None
     if use_depth:
         applied_off = (args.disparity_offset_px
                        if args.disparity_offset_px is not None
                        else zed_depth_config.offset_px())
+        applied_scale = (args.disparity_scale
+                         if args.disparity_scale is not None
+                         else zed_depth_config.scale())
     T_LR, t_lr_desc, XL_free, XR_free = resolve_t_lr(
         args.t_lr, res_dir, args.baseline_x, args.t_lr_npz, mode_name=mode_name,
-        applied_offset_px=applied_off)
+        applied_offset_px=applied_off, applied_scale=applied_scale)
     print(f'[JOINT] T_LR ({t_lr_desc}):')
     print(np.round(T_LR, 6))
 
     Tc_L, Tb_L, vi_L = build_side(base, 'left', args.max_images,
                                   offset_px=args.disparity_offset_px,
+                                  scale=args.disparity_scale,
                                   use_depth_translation=use_depth,
                                   rgbd_file=rgbd_files['left'])
     Tc_R, Tb_R, vi_R = build_side(base, 'right', args.max_images,
                                   offset_px=args.disparity_offset_px,
+                                  scale=args.disparity_scale,
                                   use_depth_translation=use_depth,
                                   rgbd_file=rgbd_files['right'])
     print(f'[JOINT] pairs: {len(Tb_L)} left + {len(Tb_R)} right = {len(Tb_L) + len(Tb_R)}')
@@ -298,6 +317,7 @@ def main():
     provenance = {'translation_mode': np.str_(mode_name)}
     if use_depth:
         provenance['disparity_offset_px'] = np.float64(applied_off)
+        provenance['disparity_scale'] = np.float64(applied_scale)
     out_dirs = [res_dir] + ([base] if args.save_to_calib_dir else [])
     for out in out_dirs:
         # the one-file form for joint consumers
@@ -328,6 +348,8 @@ def main():
         if use_depth:
             f.write(f'\ndisparity_offset_px: '
                     f'{float(provenance["disparity_offset_px"])}\n')
+            f.write(f'disparity_scale: '
+                    f'{float(provenance["disparity_scale"])}\n')
     print(f'[SAVED] {res_dir}/summary_joint_{mode_name}.txt')
 
 

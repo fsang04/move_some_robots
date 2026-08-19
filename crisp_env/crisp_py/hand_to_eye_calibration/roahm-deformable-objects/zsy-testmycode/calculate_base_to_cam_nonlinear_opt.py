@@ -53,7 +53,7 @@ DATAPATH = (
 )
 
 EXPECTED_TAG_ID = 3
-TAG_SIZE_M = 0.0955   # MEASURED with calipers 2026-08-19 (outer black square edge).
+TAG_SIZE_M = 0.0950   # MEASURED with calipers 2026-08-19 (outer black square edge, re-verified).
                      # The mount was long assumed 0.093; the print is 3.2% larger,
                      # which scaled every tag-derived range short by the same factor
                      # and biased the solved extrinsics ~50 mm along the viewing ray.
@@ -1312,13 +1312,19 @@ def main():
              "overwrite each other. Default: none for the standard rgbd file, or "
              "derived from --rgbd-file (e.g. right_calibration_rgbd_fs.npz -> 'fs').")
     parser.add_argument(
-        "--disparity-offset-px", type=float, default=None,
-        help="ZED depth disparity-offset correction, in pixels. Default: the value "
-             "in zed_capture/zed_depth_correction.json (currently "
-             f"{zed_depth_config.offset_px():.2f} px). Pass 0 to use raw depth, for "
-             "comparison. Ignored unless --camera zed --use-depth-translation. "
-             "Never applied twice: a dataset whose npz records its own "
-             "disparity_offset_px is left alone.")
+        "--d", "--disparity-offset-px", dest="disparity_offset_px",
+        type=float, default=None,
+        help="ZED disparity offset d, in pixels (model: disp_true = a*disp + d). "
+             "Default: zed_capture/zed_depth_correction.json (currently "
+             f"{zed_depth_config.offset_px():.2f} px). Pass 0 to disable the shift. "
+             "Ignored unless --camera zed --use-depth-translation. Never applied "
+             "twice: a dataset whose npz records its own correction is left alone.")
+    parser.add_argument(
+        "--a", "--disparity-scale", dest="disparity_scale",
+        type=float, default=None,
+        help="ZED disparity scale a, dimensionless (model: disp_true = a*disp + d). "
+             "Default: zed_capture/zed_depth_correction.json (currently "
+             f"{zed_depth_config.scale():.4f}). Pass 1 to disable the stretch.")
 
     args = parser.parse_args()
 
@@ -1366,7 +1372,9 @@ def main():
         set_depth_corrector(zed_depth_config.corrector_for(
             args.camera, fx, unit="mm",
             offset_px_override=args.disparity_offset_px,
+            scale_override=args.disparity_scale,
             already_applied_px=zed_depth_config.dataset_applied_offset_px(rgbd_path),
+            already_applied_scale=zed_depth_config.dataset_applied_scale(rgbd_path),
         ))
 
     exclude_images = _parse_exclude_images(args.exclude_images)
@@ -1471,6 +1479,8 @@ def main():
         # perception pipeline must apply this exact value.
         disparity_offset_px=np.float64(
             _DEPTH_CORRECTOR.offset_px if _DEPTH_CORRECTOR.enabled else 0.0),
+        disparity_scale=np.float64(
+            _DEPTH_CORRECTOR.scale if _DEPTH_CORRECTOR.enabled else 1.0),
     )
 
     # X_opt is also written positionally as 'arr_0', because older readers take it.
@@ -1528,7 +1538,9 @@ def main():
                 set_depth_corrector(zed_depth_config.corrector_for(
                     args.camera, fx, unit="mm",
                     offset_px_override=args.disparity_offset_px,
+                    scale_override=args.disparity_scale,
                     already_applied_px=zed_depth_config.dataset_applied_offset_px(rgbd_path),
+                    already_applied_scale=zed_depth_config.dataset_applied_scale(rgbd_path),
                 ))
                 print("[WORST] depth correction installed for the point cloud only "
                       "(the fit did not use depth).")

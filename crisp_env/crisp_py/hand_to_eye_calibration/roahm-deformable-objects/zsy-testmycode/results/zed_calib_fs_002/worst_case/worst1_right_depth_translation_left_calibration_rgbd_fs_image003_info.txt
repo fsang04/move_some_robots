@@ -1,0 +1,33 @@
+worst rank        : 1 of 70 frames (metric=combined)
+image index       : 3
+image             : /home/yizhouch/move_some_robots/crisp_env/crisp_py/hand_to_eye_calibration/roahm-deformable-objects/captured_calibration_data/zed_calib_fs_002/frames/calibration_right_image_3.png
+detector source   : original
+tag center (u,v)  : [1379.6484 717.2995]
+tag center depth  : 2073.2285204751975
+trans error [mm]  : 499.809
+rot error [deg]   : 0.5766
+se3 error (rvec|t): [-0.0031 0.0061 0.0074 0.0527 -0.1133 -0.4839]
+
+T_cam_tag (measured):
+[[-0.0097 0.9989 -0.0460 0.4074]
+ [-0.9987 -0.0119 -0.0498 0.0697]
+ [-0.0503 0.0455 0.9977 2.0732]
+ [0.0000 0.0000 0.0000 1.0000]]
+
+T_cam_tag (predicted = X_cam_base @ T_base_tag):
+[[-0.0020 0.9991 -0.0430 0.3155]
+ [-0.9984 -0.0044 -0.0559 0.0435]
+ [-0.0561 0.0428 0.9975 1.5826]
+ [0.0000 0.0000 0.0000 1.0000]]
+
+T_base_tag (robot FK @ gripper2tag):
+[[-0.0209 -0.9997 -0.0086 0.4738]
+ [-0.0579 0.0098 -0.9983 0.4797]
+ [0.9981 -0.0204 -0.0581 0.2498]
+ [0.0000 0.0000 0.0000 1.0000]]
+
+T_cam_tag (raw AprilTag pose, before any depth override):
+[[-0.0097 0.9989 -0.0460 0.2001]
+ [-0.9987 -0.0119 -0.0498 0.0343]
+ [-0.0503 0.0455 0.9977 1.0188]
+ [0.0000 0.0000 0.0000 1.0000]]

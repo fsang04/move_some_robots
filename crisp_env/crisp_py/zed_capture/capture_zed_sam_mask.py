@@ -494,14 +494,19 @@ def parse_args() -> argparse.Namespace:
     cap.add_argument("--from-viewer-conf", action="store_true",
                      help="seed resolution/fps/depth-mode/depth-range from the ZED Depth "
                           "Viewer's saved conf (read-only; explicit flags still win)")
-    cap.add_argument("--disparity-offset-px", type=float,
-                     default=zc.DEPTH_DISPARITY_OFFSET_PX,
-                     help="correct the camera's constant disparity offset, which makes "
-                          "depth read too far. Default: the value in "
+    cap.add_argument("--d", "--disparity-offset-px", dest="disparity_offset_px",
+                     type=float, default=zc.DEPTH_DISPARITY_OFFSET_PX,
+                     help="disparity offset d (model: disp_true = a*disp + d), which "
+                          "makes depth read too far. Default: the value in "
                           "zed_capture/zed_depth_correction.json (currently "
                           f"{zc.DEPTH_DISPARITY_OFFSET_PX:.2f} px), which the calibration "
                           "solvers also read. Pass 0 to disable -- do that after you "
                           "recalibrate the camera, or the depth goes wrong the other way.")
+    cap.add_argument("--a", "--disparity-scale", dest="disparity_scale",
+                     type=float, default=zc.DEPTH_DISPARITY_SCALE,
+                     help="disparity scale a, dimensionless. Default: the value in "
+                          "zed_capture/zed_depth_correction.json (currently "
+                          f"{zc.DEPTH_DISPARITY_SCALE:.4f}). Pass 1 to disable.")
 
     out = parser.add_argument_group("output")
     out.add_argument("--output", default=None,
@@ -636,6 +641,7 @@ def main() -> None:
         color_full, depth_m_full, depth_mm_full = zc.capture_rgbd_native(
             zed, runtime, n_median=args.median_frames,
             disparity_offset_px=args.disparity_offset_px,
+            disparity_scale=args.disparity_scale,
         )
 
         intrinsics = zc.get_intrinsics(zed, target_wh=(args.out_width, args.out_height))
@@ -673,6 +679,7 @@ def main() -> None:
             "warmup_frames": int(args.warmup_frames),
             "from_viewer_conf": bool(args.from_viewer_conf),
             "disparity_offset_px": float(args.disparity_offset_px),
+            "disparity_scale": float(args.disparity_scale),
             "native_width": int(native_w),
             "native_height": int(native_h),
             "out_width": int(args.out_width),
@@ -685,10 +692,12 @@ def main() -> None:
             "coordinate_system": "sl.COORDINATE_SYSTEM.IMAGE (X right, Y down, Z forward)",
             "depth_registration": "already aligned to VIEW.LEFT; no RGB-depth alignment applied",
             "depth_disparity_correction":
-                (f"disparity offset {args.disparity_offset_px:+.2f} px removed: "
-                 "z = fx*B/(fx*B/z_reported + offset). Set --disparity-offset-px 0 "
+                (f"disparity a={args.disparity_scale:.4f}, "
+                 f"d={args.disparity_offset_px:+.2f} px removed: "
+                 "z = fx*B/(a * fx*B/z_reported + d). Set --d 0 --a 1 "
                  "after recalibrating the camera.")
-                if args.disparity_offset_px else "none (raw SDK depth)",
+                if (args.disparity_offset_px or args.disparity_scale != 1.0)
+                else "none (raw SDK depth)",
         },
     }
 

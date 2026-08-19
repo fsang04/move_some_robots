@@ -33,6 +33,7 @@ RUN IT
 """
 
 import argparse
+import subprocess
 import sys
 import time
 from pathlib import Path
@@ -96,7 +97,7 @@ _RUN_STAMP = time.strftime("%Y%m%d_%H%M%S")
 VIDEO_PATH = PICK_RUN_DIR / f"pick_{_RUN_STAMP}.mp4"
 
 
-def set_calib_sequence(seq_name):
+def set_calib_sequence(seq_name, fs=False):
     """Re-point the transforms AND every kept output at another calibration sequence.
 
     The module-level paths above are derived from zed_calib_003 at import time,
@@ -104,6 +105,11 @@ def set_calib_sequence(seq_name):
     003 -- breaking the whole point of PICK_RUN_DIR (a recording must trace to
     the calibration that aimed it). Call this (or pass --calib-seq-name) before
     main().
+
+    fs=True loads the FoundationStereo-depth free solves instead: the
+    *_depth_translation_fs.npz files that live in zsy-testmycode/results/<seq>
+    (the _fs-tagged solver outputs are never copied into the capture dir, so
+    they are read from where the solver writes them).
     """
     global CALIB_DIR, LEFT_TRANSFORM_PATH, RIGHT_TRANSFORM_PATH
     global PICK_RUN_DIR, VIDEO_PATH
@@ -111,14 +117,24 @@ def set_calib_sequence(seq_name):
                  / "captured_calibration_data" / seq_name)
     if not CALIB_DIR.is_dir():
         raise RuntimeError(f"no such calibration sequence: {CALIB_DIR}")
-    LEFT_TRANSFORM_PATH = str(
-        CALIB_DIR / "base2cam_transform_left_nonlinear_opt_depth_translation.npz")
-    RIGHT_TRANSFORM_PATH = str(
-        CALIB_DIR / "base2cam_transform_right_nonlinear_opt_depth_translation.npz")
+    if fs:
+        results = (REPO_ROOT / "hand_to_eye_calibration/roahm-deformable-objects"
+                   / "zsy-testmycode/results" / seq_name)
+        LEFT_TRANSFORM_PATH = str(
+            results / "base2cam_transform_left_nonlinear_opt_depth_translation_fs.npz")
+        RIGHT_TRANSFORM_PATH = str(
+            results / "base2cam_transform_right_nonlinear_opt_depth_translation_fs.npz")
+    else:
+        LEFT_TRANSFORM_PATH = str(
+            CALIB_DIR / "base2cam_transform_left_nonlinear_opt_depth_translation.npz")
+        RIGHT_TRANSFORM_PATH = str(
+            CALIB_DIR / "base2cam_transform_right_nonlinear_opt_depth_translation.npz")
     PICK_RUN_DIR = CALIB_DIR / "pick_runs"
     PICK_RUN_DIR.mkdir(parents=True, exist_ok=True)
     VIDEO_PATH = PICK_RUN_DIR / f"pick_{_RUN_STAMP}.mp4"
-    print(f"[INFO] calibration sequence: {seq_name} -- videos go to {PICK_RUN_DIR}")
+    print(f"[INFO] calibration sequence: {seq_name}"
+          + (" (FS extrinsics)" if fs else "")
+          + f" -- videos go to {PICK_RUN_DIR}")
 VIDEO_FPS = 15.0          # the ZED caps at 15 fps in HD2K
 VIDEO_LEAD_IN_SEC = 2.0   # record this long before the arms start moving
 VIDEO_TAIL_SEC = 2.0      # record this long after the lift finishes
@@ -276,6 +292,29 @@ def load_camera_to_base_transform(path: str, name: str) -> np.ndarray:
     data = np.load(path)
     T_saved = data["arr_0"]
 
+    # The transform was solved from depth corrected by the offset stamped in the
+    # npz; this script corrects live depth by zed_camera's current value. A
+    # mismatch silently shifts every grasp target along the viewing ray, so
+    # refuse it outright (same guard as dual_green_pick_zed_joint.py).
+    live_off = float(zc.DEPTH_DISPARITY_OFFSET_PX or 0.0)
+    live_a = float(zc.DEPTH_DISPARITY_SCALE or 1.0)
+    if "disparity_offset_px" in data.files:
+        stored_off = float(data["disparity_offset_px"])
+        stored_a = (float(data["disparity_scale"])
+                    if "disparity_scale" in data.files else 1.0)
+        if abs(stored_off - live_off) > 1e-6 or abs(stored_a - live_a) > 1e-9:
+            raise RuntimeError(
+                f"depth correction mismatch for {name}: the transform was solved "
+                f"at a={stored_a:.4f}, d={stored_off:+.2f} px but the live capture "
+                f"applies a={live_a:.4f}, d={live_off:+.2f} px. Pass "
+                f"--a {stored_a:g} --d {stored_off:g}, re-solve, or align "
+                "zed_depth_correction.json.")
+        print(f"[INFO] {name} depth correction matches: a={live_a:.4f}, "
+              f"d={live_off:+.2f} px")
+    else:
+        print(f"[WARN] {name} transform records no disparity correction; cannot "
+              f"verify it matches the live a={live_a:.4f}, d={live_off:+.2f} px.")
+
     # calculate_base_to_cam.py saves base->cam; grasping needs camera->base.
     T_camera_to_base = np.linalg.inv(T_saved)
 
@@ -381,17 +420,23 @@ def load_capture(run_dir):
         import json
         cfg = json.load(open(cfg_path))
         applied = cfg.get("capture", {}).get("disparity_offset_px")
+        applied_a = cfg.get("capture", {}).get("disparity_scale", 1.0)
     expected = zc.DEPTH_DISPARITY_OFFSET_PX
+    expected_a = float(zc.DEPTH_DISPARITY_SCALE or 1.0)
     if applied is None:
-        print(f"[WARN] {cfg_path} does not record disparity_offset_px. This script "
-              f"expects depth already corrected by {expected:+.2f} px and cannot verify it.")
-    elif abs(float(applied) - float(expected)) > 1e-6:
+        print(f"[WARN] {cfg_path} does not record the disparity correction. This "
+              f"script expects depth already corrected by a={expected_a:.4f}, "
+              f"d={expected:+.2f} px and cannot verify it.")
+    elif (abs(float(applied) - float(expected)) > 1e-6
+          or abs(float(applied_a) - expected_a) > 1e-9):
         raise RuntimeError(
-            f"depth correction mismatch: the capture applied {float(applied):+.2f} px, "
-            f"but the deployed transform was solved for {expected:+.2f} px. "
+            f"depth correction mismatch: the capture applied a={float(applied_a):.4f}, "
+            f"d={float(applied):+.2f} px, but the deployed transform was solved for "
+            f"a={expected_a:.4f}, d={expected:+.2f} px. "
             "Re-capture, or align zed_capture/zed_depth_correction.json.")
     else:
-        print(f"[INFO] capture depth already corrected by {float(applied):+.2f} px -- matches")
+        print(f"[INFO] capture depth already corrected by a={float(applied_a):.4f}, "
+              f"d={float(applied):+.2f} px -- matches")
 
     intr_path = run_dir / "intrinsics.json"
     if not intr_path.is_file():
@@ -415,9 +460,75 @@ def get_rgbd(zed, runtime):
     is already registered to VIEW.LEFT, so there is no alignment step.
 
     The disparity-offset correction is applied inside capture_rgbd_native().
+    With --fs (USE_FS_LIVE_DEPTH), FoundationStereo replaces the SDK matcher.
     """
+    if USE_FS_LIVE_DEPTH:
+        return _get_rgbd_fs(zed, runtime)
     color_bgr, _depth_m, depth_mm = zc.capture_rgbd_native(
         zed, runtime, n_median=ZED_MEDIAN_FRAMES)
+    cv2.imwrite(str(DEBUG_DIR / "raw_color.png"), color_bgr)
+    return color_bgr, depth_mm
+
+
+# --- FoundationStereo live depth (--fs) --------------------------------------
+# torch and rclpy share no env, so the pair is matched in a subprocess. Same
+# path as dual_green_pick_zed_joint.py uses; ~10 s once per pick on the A6000.
+USE_FS_LIVE_DEPTH = False
+FS_ENV_PYTHON = Path.home() / "miniforge3/envs/foundation_stereo/bin/python"
+FS_SINGLE_SCRIPT = (REPO_ROOT / "hand_to_eye_calibration/roahm-deformable-objects"
+                    / "zsy-testmycode/fs_depth_single.py")
+
+
+def _get_rgbd_fs(zed, runtime):
+    """One left+right rectified pair -> FoundationStereo depth, SDK-format output.
+
+    fs_depth_single.py writes RAW depth; the live disparity-offset correction is
+    applied here, exactly as capture_rgbd_native() does for SDK depth (the
+    offset lives in the rectified images both matchers consume). A single pair
+    replaces the SDK path's n-frame median: the median fights SDK stereo
+    speckle, which FS's global matching does not exhibit.
+    """
+    for _ in range(3):
+        if zed.grab(runtime) == sl.ERROR_CODE.SUCCESS:
+            break
+    else:
+        raise RuntimeError("zed.grab() failed 3x while capturing the FS pair")
+    img_l, img_r = sl.Mat(), sl.Mat()
+    if zed.retrieve_image(img_l, sl.VIEW.LEFT) != sl.ERROR_CODE.SUCCESS:
+        raise RuntimeError("retrieve_image(VIEW.LEFT) failed")
+    if zed.retrieve_image(img_r, sl.VIEW.RIGHT) != sl.ERROR_CODE.SUCCESS:
+        raise RuntimeError("retrieve_image(VIEW.RIGHT) failed")
+    color_bgr = cv2.cvtColor(img_l.get_data(deep_copy=True), cv2.COLOR_BGRA2BGR)
+    right_bgr = cv2.cvtColor(img_r.get_data(deep_copy=True), cv2.COLOR_BGRA2BGR)
+
+    conf = zed.get_camera_information().camera_configuration
+    fx = float(conf.calibration_parameters.left_cam.fx)
+    baseline_m = float(conf.calibration_parameters.get_camera_baseline())
+
+    left_png, right_png = DEBUG_DIR / "fs_left.png", DEBUG_DIR / "fs_right.png"
+    out_npy = DEBUG_DIR / "fs_depth_mm_raw.npy"
+    cv2.imwrite(str(left_png), color_bgr)
+    cv2.imwrite(str(right_png), right_bgr)
+    print(f"[INFO] FoundationStereo live depth ({FS_SINGLE_SCRIPT.name}, "
+          "foundation_stereo env)...")
+    t0 = time.time()
+    subprocess.run([str(FS_ENV_PYTHON), str(FS_SINGLE_SCRIPT),
+                    "--left", str(left_png), "--right", str(right_png),
+                    "--out", str(out_npy),
+                    "--fx", f"{fx:.6f}", "--baseline", f"{baseline_m:.6f}"],
+                   check=True, timeout=600)
+    print(f"[INFO] FoundationStereo pair done in {time.time() - t0:.1f} s")
+
+    depth_m = np.load(out_npy).astype(np.float32) / 1000.0
+    offset_px = float(zc.DEPTH_DISPARITY_OFFSET_PX or 0.0)
+    scale_a = float(zc.DEPTH_DISPARITY_SCALE or 1.0)
+    if offset_px or scale_a != 1.0:
+        depth_m = zc.correct_depth_disparity_offset(depth_m, fx, baseline_m,
+                                                    offset_px, scale=scale_a)
+        print(f"[depth-fix] disparity a={scale_a:.4f}, d={offset_px:+.2f} px "
+              "applied to FS depth")
+    depth_mm = np.clip(depth_m * 1000.0, 0.0, 65535.0).astype(np.uint16)
+    depth_mm[depth_m <= 0.0] = 0
     cv2.imwrite(str(DEBUG_DIR / "raw_color.png"), color_bgr)
     return color_bgr, depth_mm
 
@@ -1527,7 +1638,55 @@ if __name__ == "__main__":
                     help="calibration sequence to use: transforms are read from and "
                          "grasp videos are saved into captured_calibration_data/<seq>. "
                          "Default: zed_calib_003 (the module constants).")
+    ap.add_argument("--fs", action="store_true",
+                    help="all-FoundationStereo run with the TWO INDEPENDENT per-arm "
+                         "extrinsics: loads the *_depth_translation_fs.npz free solves "
+                         "from zsy-testmycode/results/<seq> AND replaces the live SDK "
+                         "depth with FoundationStereo on the left+right rectified pair "
+                         "(~10 s, foundation_stereo env). For the JOINT extrinsic use "
+                         "dual_green_pick_zed_joint.py --fs instead.")
+    ap.add_argument("--d", "--disparity-offset-px", dest="disparity_offset_px",
+                    type=float, default=None,
+                    help="override the live disparity offset d (default: "
+                         "zed_capture/zed_depth_correction.json). Must equal the "
+                         "value stamped in the transform npzs; the loader refuses "
+                         "a mismatch.")
+    ap.add_argument("--a", "--disparity-scale", dest="disparity_scale",
+                    type=float, default=None,
+                    help="override the live disparity scale a (default: "
+                         "zed_capture/zed_depth_correction.json). Must equal the "
+                         "value stamped in the transform npzs.")
     _a = ap.parse_args()
-    if _a.calib_seq_name:
-        set_calib_sequence(_a.calib_seq_name)
+    if _a.disparity_offset_px is not None or _a.disparity_scale is not None:
+        # capture_rgbd_native() bound its defaults at definition time, so
+        # override both the module constants (what the guard and the FS path
+        # read) and the values actually applied to SDK depth.
+        _json_off = float(zc.DEPTH_DISPARITY_OFFSET_PX or 0.0)
+        _json_a = float(zc.DEPTH_DISPARITY_SCALE or 1.0)
+        _use_off = (_a.disparity_offset_px if _a.disparity_offset_px is not None
+                    else _json_off)
+        _use_a = _a.disparity_scale if _a.disparity_scale is not None else _json_a
+        zc.DEPTH_DISPARITY_OFFSET_PX = _use_off
+        zc.DEPTH_DISPARITY_SCALE = _use_a
+        _orig_capture = zc.capture_rgbd_native
+
+        def _capture_with_override(*cargs, **ckw):
+            ckw.setdefault("disparity_offset_px", _use_off)
+            ckw.setdefault("disparity_scale", _use_a)
+            return _orig_capture(*cargs, **ckw)
+
+        zc.capture_rgbd_native = _capture_with_override
+        print(f"[INFO] live disparity correction OVERRIDDEN to a={_use_a:.4f}, "
+              f"d={_use_off:+.2f} px (json has a={_json_a:.4f}, d={_json_off:+.2f} px)")
+    if _a.fs and _a.from_capture is None:
+        if not FS_ENV_PYTHON.is_file():
+            sys.exit(f"{FS_ENV_PYTHON} is missing -- the foundation_stereo conda "
+                     "env is required for --fs live depth.")
+        USE_FS_LIVE_DEPTH = True
+        print("[INFO] live depth source: FoundationStereo (left+right views)")
+    elif _a.fs:
+        print("[WARN] --from-capture replays saved SDK depth; --fs only selects "
+              "the extrinsics for this run (no live FS depth).")
+    if _a.calib_seq_name or _a.fs:
+        set_calib_sequence(_a.calib_seq_name or "zed_calib_003", fs=_a.fs)
     main(dry_run=_a.dry_run, from_capture=_a.from_capture, test_run=_a.test_run)

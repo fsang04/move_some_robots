@@ -106,7 +106,7 @@ def config_path() -> Path | None:
 
 
 def offset_px() -> float:
-    """Configured disparity offset in pixels. 0.0 means no correction.
+    """Configured disparity offset d in pixels. 0.0 means no shift.
 
     $ZED_DEPTH_OFFSET_PX overrides the file, for a one-shot experiment.
     """
@@ -114,6 +114,22 @@ def offset_px() -> float:
     if env:
         return float(env)
     return float(load().get("disparity_offset_px", 0.0) or 0.0)
+
+
+def scale() -> float:
+    """Configured disparity scale a (dimensionless). 1.0 means no stretch.
+
+    Correction model: disp_true = a * disp_reported + d. The scale absorbs
+    percentage errors (baseline / rectified-focal mismatch) that a constant
+    offset cannot; fitted vs AprilTag PnP ranging on zed_calib_fs_002 with the
+    caliper-verified 95.0 mm tag (2026-08-19), both arms agreeing to 0.0007.
+
+    $ZED_DEPTH_SCALE overrides the file, for a one-shot experiment.
+    """
+    env = os.environ.get("ZED_DEPTH_SCALE")
+    if env:
+        return float(env)
+    return float(load().get("disparity_scale", 1.0) or 1.0)
 
 
 def baseline_m() -> float:
@@ -225,12 +241,13 @@ class DepthCorrector:
     """
 
     def __init__(self, fx: float, baseline_m: float, offset_px: float,
-                 unit: str = "m", reason: str = ""):
+                 unit: str = "m", reason: str = "", scale: float = 1.0):
         if unit not in ("m", "mm"):
             raise ValueError(f"unit must be 'm' or 'mm', got {unit!r}")
         self.fx = float(fx)
         self.baseline_m = float(baseline_m)
         self.offset_px = float(offset_px)
+        self.scale = float(scale)
         self.unit = unit
         self.reason = reason
         # fx*B carries the unit of the depth it will divide into.
@@ -238,35 +255,39 @@ class DepthCorrector:
 
     @property
     def enabled(self) -> bool:
-        return bool(self.offset_px)
+        return bool(self.offset_px) or self.scale != 1.0
 
     def __call__(self, depth):
-        """Correct a scalar or an array of depths, in self.unit."""
-        if not self.offset_px:
+        """Correct a scalar or an array of depths, in self.unit.
+
+        Model: disp_true = scale * disp_reported + offset_px, then back to depth.
+        """
+        if not self.enabled:
             return depth
 
         if np.isscalar(depth):
             z = float(depth)
             if not np.isfinite(z) or z <= 0.0:
                 return depth
-            return self._fx_b / (self._fx_b / z + self.offset_px)
+            return self._fx_b / (self.scale * (self._fx_b / z) + self.offset_px)
 
         out = np.asarray(depth, dtype=np.float32).copy()
         valid = np.isfinite(out) & (out > 0)
         if valid.any():
             disparity = self._fx_b / out[valid]
-            out[valid] = (self._fx_b / (disparity + self.offset_px)).astype(np.float32)
+            out[valid] = (self._fx_b / (self.scale * disparity + self.offset_px)
+                          ).astype(np.float32)
         return out
 
     def describe(self) -> str:
         if not self.enabled:
             return f"[depth-fix] correction OFF{(' -- ' + self.reason) if self.reason else ''}"
-        # What the offset is worth, in mm, at two useful ranges.
+        # What the correction is worth, in mm, at two useful ranges.
         shifts = []
         for z_m in (1.0, 1.5):
             z = z_m * (1000.0 if self.unit == "mm" else 1.0)
             shifts.append(f"{(self(z) - z) * (1.0 if self.unit == 'mm' else 1000.0):+.1f} mm @ {z_m:.1f} m")
-        return (f"[depth-fix] disparity offset {self.offset_px:+.2f} px applied "
+        return (f"[depth-fix] disparity a={self.scale:.4f}, d={self.offset_px:+.2f} px applied "
                 f"(fx={self.fx:.2f} px, B={self.baseline_m * 1000:.1f} mm, unit={self.unit}): "
                 + ", ".join(shifts))
 
@@ -278,22 +299,28 @@ def disabled_corrector(reason: str = "") -> DepthCorrector:
 
 def corrector_for(camera: str, fx: float, *, unit: str = "m",
                   offset_px_override: float | None = None,
+                  scale_override: float | None = None,
                   already_applied_px: float = 0.0,
+                  already_applied_scale: float = 1.0,
                   baseline_m_override: float | None = None,
                   verbose: bool = True) -> DepthCorrector:
     """Build the right corrector for one camera and one dataset.
 
     Args:
         camera:  'zed', 'azure', ... Anything not in SUPPORTED_CAMERAS gets the
-                 identity, because the offset is a per-device measurement.
+                 identity, because the correction is a per-device measurement.
         fx:      RECTIFIED left-camera focal length in pixels, at the SAME
                  resolution as the depth it will correct.
         unit:    'm' for metric depth, 'mm' for the uint16 millimetre stacks that
                  the calibration captures store.
-        offset_px_override: use this instead of the config. 0.0 disables.
-        already_applied_px: what the dataset already had applied, from the
-                 'disparity_offset_px' key of its npz. Non-zero means the data is
-                 already corrected, so this returns the identity. THIS IS THE
+        offset_px_override: use this d instead of the config. 0.0 disables the
+                 shift.
+        scale_override: use this a instead of the config. 1.0 disables the
+                 stretch.
+        already_applied_px / already_applied_scale: what the dataset already had
+                 applied, from the 'disparity_offset_px' / 'disparity_scale' keys
+                 of its npz. Any non-raw pair means the data is already
+                 corrected, so this returns the identity. THIS IS THE
                  DOUBLE-CORRECTION GUARD.
         baseline_m_override: use this instead of the config, e.g. a value read
                  from the live camera.
@@ -307,18 +334,21 @@ def corrector_for(camera: str, fx: float, *, unit: str = "m",
             print(corrector.describe())
         return corrector
 
-    if already_applied_px:
+    if already_applied_px or (already_applied_scale and already_applied_scale != 1.0):
         corrector = disabled_corrector(
-            f"the dataset already has {already_applied_px:+.2f} px applied, "
-            "so correcting again would double it")
+            f"the dataset already has a={already_applied_scale:.4f}, "
+            f"d={already_applied_px:+.2f} px applied, so correcting again "
+            "would double it")
         if verbose:
             print(corrector.describe())
         return corrector
 
     offset = offset_px() if offset_px_override is None else float(offset_px_override)
-    if not offset:
+    scl = scale() if scale_override is None else float(scale_override)
+    if not offset and scl == 1.0:
         corrector = disabled_corrector(
-            "disparity_offset_px is 0" if offset_px_override is None
+            "disparity correction is identity (a=1, d=0)"
+            if offset_px_override is None and scale_override is None
             else "disabled on the command line")
         if verbose:
             print(corrector.describe())
@@ -326,7 +356,8 @@ def corrector_for(camera: str, fx: float, *, unit: str = "m",
 
     check_camera(verbose=verbose)
     baseline = baseline_m() if baseline_m_override is None else float(baseline_m_override)
-    corrector = DepthCorrector(fx=fx, baseline_m=baseline, offset_px=offset, unit=unit)
+    corrector = DepthCorrector(fx=fx, baseline_m=baseline, offset_px=offset,
+                               unit=unit, scale=scl)
     if verbose:
         print(corrector.describe())
         if config_path() is not None and offset_px_override is None:
@@ -353,3 +384,24 @@ def dataset_applied_offset_px(npz_or_path) -> float:
     if "disparity_offset_px" not in files:
         return 0.0
     return float(np.asarray(data["disparity_offset_px"]).reshape(-1)[0])
+
+
+def dataset_applied_scale(npz_or_path) -> float:
+    """Read the 'disparity_scale' provenance key from an RGB-D npz.
+
+    Returns 1.0 when the key is absent -- correct for every dataset written
+    before the scale term existed: those either hold RAW depth (offset key 0 or
+    absent) or were corrected with the constant-offset model only (a = 1).
+    """
+    data = npz_or_path
+    if isinstance(npz_or_path, (str, Path)):
+        if not Path(npz_or_path).is_file():
+            return 1.0
+        data = np.load(npz_or_path)
+    try:
+        files = data.files
+    except AttributeError:
+        return 1.0
+    if "disparity_scale" not in files:
+        return 1.0
+    return float(np.asarray(data["disparity_scale"]).reshape(-1)[0])

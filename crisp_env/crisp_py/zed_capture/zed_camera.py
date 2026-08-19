@@ -121,6 +121,7 @@ _GRAB_RETRIES = 10
 # because the calibration solvers under hand_to_eye_calibration/ must use the same
 # number, and they cannot import this module (it needs pyzed). See zed_depth_config.
 DEPTH_DISPARITY_OFFSET_PX = zed_depth_config.offset_px()
+DEPTH_DISPARITY_SCALE = zed_depth_config.scale()
 
 
 def correct_depth_disparity_offset(
@@ -128,6 +129,7 @@ def correct_depth_disparity_offset(
     fx: float,
     baseline_m: float,
     offset_px: float | None = None,
+    scale: float | None = None,
 ) -> np.ndarray:
     """Undo a constant disparity offset in a metric depth map.
 
@@ -158,10 +160,12 @@ def correct_depth_disparity_offset(
     """
     if offset_px is None:
         offset_px = zed_depth_config.offset_px()
-    if not offset_px:
+    if scale is None:
+        scale = zed_depth_config.scale()
+    if not offset_px and scale == 1.0:
         return depth_m
     corrector = zed_depth_config.DepthCorrector(
-        fx=fx, baseline_m=baseline_m, offset_px=offset_px, unit="m"
+        fx=fx, baseline_m=baseline_m, offset_px=offset_px, unit="m", scale=scale
     )
     return corrector(depth_m)
 
@@ -809,6 +813,7 @@ def capture_rgbd_native(
     runtime: sl.RuntimeParameters,
     n_median: int = _MEDIAN_FRAMES,
     disparity_offset_px: float = DEPTH_DISPARITY_OFFSET_PX,
+    disparity_scale: float = DEPTH_DISPARITY_SCALE,
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """Capture one RGB-D frame at the camera's native resolution.
 
@@ -872,20 +877,21 @@ def capture_rgbd_native(
     depth_m = np.where(np.isfinite(depth_m), depth_m, 0.0).astype(np.float32)
     depth_m[depth_m < 0.0] = 0.0
 
-    # Remove the constant disparity offset. This runs BEFORE depth_mm is derived,
-    # so both maps carry the correction and stay consistent with each other.
-    if disparity_offset_px:
+    # Remove the disparity error (a * disp + d). This runs BEFORE depth_mm is
+    # derived, so both maps carry the correction and stay consistent.
+    if disparity_offset_px or (disparity_scale and disparity_scale != 1.0):
         conf = zed.get_camera_information().camera_configuration
         fx = float(conf.calibration_parameters.left_cam.fx)
         baseline_m = float(conf.calibration_parameters.get_camera_baseline())
         valid_before = depth_m > 0.0
         mean_before = float(depth_m[valid_before].mean()) if valid_before.any() else 0.0
         depth_m = correct_depth_disparity_offset(
-            depth_m, fx, baseline_m, disparity_offset_px
+            depth_m, fx, baseline_m, disparity_offset_px, scale=disparity_scale
         )
         valid_after = depth_m > 0.0
         mean_after = float(depth_m[valid_after].mean()) if valid_after.any() else 0.0
-        print(f"[depth-fix] disparity offset {disparity_offset_px:+.2f} px applied "
+        print(f"[depth-fix] disparity a={disparity_scale:.4f}, "
+              f"d={disparity_offset_px:+.2f} px applied "
               f"(fx={fx:.4f}, B={baseline_m:.6f} m): mean valid depth "
               f"{mean_before:.4f} -> {mean_after:.4f} m")
 

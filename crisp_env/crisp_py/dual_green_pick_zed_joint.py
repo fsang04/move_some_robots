@@ -62,11 +62,11 @@ import numpy as np
 import dual_green_pick_zed as base
 
 REPO_ROOT = Path(__file__).resolve().parent
-DEFAULT_JOINT_NPZ = (REPO_ROOT / "hand_to_eye_calibration/roahm-deformable-objects"
-                     / "zsy-testmycode/results/zed_calib_003"
+RESULTS_DIR = (REPO_ROOT / "hand_to_eye_calibration/roahm-deformable-objects"
+               / "zsy-testmycode/results")
+DEFAULT_JOINT_NPZ = (RESULTS_DIR / "zed_calib_003"
                      / "joint_extrinsic_depth_translation.npz")
-DEFAULT_FS_JOINT_NPZ = (REPO_ROOT / "hand_to_eye_calibration/roahm-deformable-objects"
-                        / "zsy-testmycode/results/zed_calib_fs_001"
+DEFAULT_FS_JOINT_NPZ = (RESULTS_DIR / "zed_calib_fs_001"
                         / "joint_extrinsic_depth_translation_fs.npz")
 FS_ENV_PYTHON = Path.home() / "miniforge3/envs/foundation_stereo/bin/python"
 FS_SINGLE_SCRIPT = (REPO_ROOT / "hand_to_eye_calibration/roahm-deformable-objects"
@@ -129,16 +129,17 @@ def make_fs_get_rgbd(offset_px):
         print(f"[INFO] FoundationStereo pair done in {time.time() - t0:.1f} s")
 
         depth_m = np.load(out_npy).astype(np.float32) / 1000.0
-        if offset_px:
+        scale_a = float(base.zc.DEPTH_DISPARITY_SCALE or 1.0)
+        if offset_px or scale_a != 1.0:
             valid = depth_m > 0.0
             mean_before = float(depth_m[valid].mean()) if valid.any() else 0.0
             depth_m = base.zc.correct_depth_disparity_offset(
-                depth_m, fx, baseline_m, offset_px)
+                depth_m, fx, baseline_m, offset_px, scale=scale_a)
             valid = depth_m > 0.0
             mean_after = float(depth_m[valid].mean()) if valid.any() else 0.0
-            print(f"[depth-fix] disparity offset {offset_px:+.2f} px applied to FS "
-                  f"depth (fx={fx:.4f}, B={baseline_m:.6f} m): mean valid depth "
-                  f"{mean_before:.4f} -> {mean_after:.4f} m")
+            print(f"[depth-fix] disparity a={scale_a:.4f}, d={offset_px:+.2f} px "
+                  f"applied to FS depth (fx={fx:.4f}, B={baseline_m:.6f} m): "
+                  f"mean valid depth {mean_before:.4f} -> {mean_after:.4f} m")
         depth_mm = np.clip(depth_m * 1000.0, 0.0, 65535.0).astype(np.uint16)
         depth_mm[depth_m <= 0.0] = 0
 
@@ -178,17 +179,20 @@ def load_joint_transforms(path):
     X_right = X_left @ T_LR
 
     stored_off = float(d["disparity_offset_px"]) if "disparity_offset_px" in d else None
+    stored_a = float(d["disparity_scale"]) if "disparity_scale" in d else 1.0
     live_off = float(base.zc.DEPTH_DISPARITY_OFFSET_PX or 0.0)
+    live_a = float(base.zc.DEPTH_DISPARITY_SCALE or 1.0)
     if stored_off is None:
-        print("[WARN] joint npz records no disparity_offset_px; cannot verify the "
-              f"depth correction matches the live {live_off:+.2f} px.")
-    elif abs(stored_off - live_off) > 1e-6:
+        print("[WARN] joint npz records no disparity correction; cannot verify it "
+              f"matches the live a={live_a:.4f}, d={live_off:+.2f} px.")
+    elif abs(stored_off - live_off) > 1e-6 or abs(stored_a - live_a) > 1e-9:
         raise RuntimeError(
             f"depth correction mismatch: the joint extrinsic was solved for "
-            f"{stored_off:+.2f} px but the live capture applies {live_off:+.2f} px. "
+            f"a={stored_a:.4f}, d={stored_off:+.2f} px but the live capture applies "
+            f"a={live_a:.4f}, d={live_off:+.2f} px. "
             "Re-run solve_joint_extrinsic.py or align zed_depth_correction.json.")
     else:
-        print(f"[INFO] depth correction matches: {live_off:+.2f} px "
+        print(f"[INFO] depth correction matches: a={live_a:.4f}, d={live_off:+.2f} px "
               "(solve and live capture)")
 
     mode = str(d["t_lr_mode"]) if "t_lr_mode" in d else "?"
@@ -211,22 +215,33 @@ def main():
                          f"(default: {DEFAULT_JOINT_NPZ}, or the FS one with --fs)")
     ap.add_argument("--fs", action="store_true",
                     help="all-FoundationStereo run: load the FS joint extrinsic "
-                         f"({DEFAULT_FS_JOINT_NPZ.name} in results/zed_calib_fs_001, "
-                         "from solve_joint_extrinsic.py --fs) AND replace the live "
-                         "SDK depth with FoundationStereo run on the left+right "
+                         "(joint_extrinsic_depth_translation_fs.npz from "
+                         "results/<--calib-seq-name>, default zed_calib_fs_001; "
+                         "produced by solve_joint_extrinsic.py --fs) AND replace the "
+                         "live SDK depth with FoundationStereo run on the left+right "
                          "rectified pair (~10 s, foundation_stereo env). An explicit "
                          "--joint-npz overrides the extrinsic half; --from-capture "
                          "disables the live-depth half.")
+    ap.add_argument("--calib-seq-name", default=None,
+                    help="calibration sequence whose joint extrinsic to load: "
+                         "results/<seq>/joint_extrinsic_depth_translation[_fs].npz "
+                         "(_fs with --fs). Default: zed_calib_003, or zed_calib_fs_001 "
+                         "with --fs. Ignored when --joint-npz is given.")
     ap.add_argument("--from-capture", metavar="RUN_DIR", default=None,
                     help="same as dual_green_pick_zed.py: use a saved capture with "
                          "a SAM mask instead of opening the camera")
-    ap.add_argument("--disparity-offset-px", type=float, default=None,
-                    help="override the live depth disparity correction (default: the "
-                         "value in zed_capture/zed_depth_correction.json, currently "
+    ap.add_argument("--d", "--disparity-offset-px", dest="disparity_offset_px",
+                    type=float, default=None,
+                    help="override the live disparity offset d (default: "
+                         "zed_capture/zed_depth_correction.json, currently "
                          f"{float(base.zc.DEPTH_DISPARITY_OFFSET_PX or 0.0):+.2f} px). "
-                         "Must equal the offset stamped in --joint-npz -- use this to "
-                         "run a joint extrinsic solved at a refit offset without "
-                         "editing the json.")
+                         "Must equal the value stamped in --joint-npz.")
+    ap.add_argument("--a", "--disparity-scale", dest="disparity_scale",
+                    type=float, default=None,
+                    help="override the live disparity scale a (default: "
+                         "zed_capture/zed_depth_correction.json, currently "
+                         f"{float(base.zc.DEPTH_DISPARITY_SCALE or 1.0):.4f}). "
+                         "Must equal the value stamped in --joint-npz.")
     ap.add_argument("--dry-run", action="store_true",
                     help="detect and print the grasp targets, then exit; nothing moves")
     ap.add_argument("--test-run", action="store_true",
@@ -236,27 +251,42 @@ def main():
     args = ap.parse_args()
 
     if args.joint_npz is None:
-        args.joint_npz = str(DEFAULT_FS_JOINT_NPZ if args.fs else DEFAULT_JOINT_NPZ)
-    elif args.fs:
-        print(f"[WARN] --fs keeps FS live depth, but the extrinsic comes from the "
-              f"explicitly given --joint-npz ({args.joint_npz})")
+        if args.calib_seq_name:
+            name = ("joint_extrinsic_depth_translation_fs.npz" if args.fs
+                    else "joint_extrinsic_depth_translation.npz")
+            args.joint_npz = str(RESULTS_DIR / args.calib_seq_name / name)
+        else:
+            args.joint_npz = str(DEFAULT_FS_JOINT_NPZ if args.fs else DEFAULT_JOINT_NPZ)
+    else:
+        if args.calib_seq_name:
+            print(f"[WARN] --calib-seq-name ignored: --joint-npz was given explicitly "
+                  f"({args.joint_npz})")
+        if args.fs:
+            print(f"[WARN] --fs keeps FS live depth, but the extrinsic comes from the "
+                  f"explicitly given --joint-npz ({args.joint_npz})")
 
-    if args.disparity_offset_px is not None:
-        # capture_rgbd_native() bound its default offset at definition time, so
-        # updating the module constant alone would satisfy every consistency
+    if args.disparity_offset_px is not None or args.disparity_scale is not None:
+        # capture_rgbd_native() bound its defaults at definition time, so
+        # updating the module constants alone would satisfy every consistency
         # check below while the frames kept the OLD correction. Override both
-        # the checked constant and the value actually applied to depth.
+        # the checked constants and the values actually applied to depth.
         json_off = float(base.zc.DEPTH_DISPARITY_OFFSET_PX or 0.0)
-        base.zc.DEPTH_DISPARITY_OFFSET_PX = args.disparity_offset_px
+        json_a = float(base.zc.DEPTH_DISPARITY_SCALE or 1.0)
+        use_off = (args.disparity_offset_px if args.disparity_offset_px is not None
+                   else json_off)
+        use_a = args.disparity_scale if args.disparity_scale is not None else json_a
+        base.zc.DEPTH_DISPARITY_OFFSET_PX = use_off
+        base.zc.DEPTH_DISPARITY_SCALE = use_a
         _capture = base.zc.capture_rgbd_native
 
         def _capture_with_override(*a, **kw):
-            kw.setdefault("disparity_offset_px", args.disparity_offset_px)
+            kw.setdefault("disparity_offset_px", use_off)
+            kw.setdefault("disparity_scale", use_a)
             return _capture(*a, **kw)
 
         base.zc.capture_rgbd_native = _capture_with_override
-        print(f"[INFO] live disparity offset OVERRIDDEN to "
-              f"{args.disparity_offset_px:+.2f} px (json has {json_off:+.2f} px)")
+        print(f"[INFO] live disparity correction OVERRIDDEN to a={use_a:.4f}, "
+              f"d={use_off:+.2f} px (json has a={json_a:.4f}, d={json_off:+.2f} px)")
 
     # --fs also swaps the LIVE depth source: instead of SDK depth, grab the
     # left+right rectified pair and let FoundationStereo match it. Installed

@@ -1,0 +1,35 @@
+# ---- Python caches / build artifacts ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.coverage
+
+# ---- Third-party repos cloned in-tree ----
+# These have their own .git; committing them creates broken submodule
+# pointers. Clone them separately instead.
+FoundationStereo/
+Fast-FoundationStereo/
+crisp_env/crisp_py/sam2/
+
+# ---- Large archives & model/engine artifacts ----
+*.zip
+ffs_engines/*.onnx
+ffs_engines/*.engine
+
+# ---- trackDeform3D: data, results, debug output ----
+crisp_env/crisp_py/trackDeform3D-core-tracking/assets
+crisp_env/crisp_py/trackDeform3D-core-tracking/input_data
+crisp_env/crisp_py/trackDeform3D-core-tracking/output
+crisp_env/crisp_py/trackDeform3D-core-tracking/init_debug/
+crisp_env/crisp_py/trackDeform3D-core-tracking/*.log
+
+# ---- Calibration / capture data ----
+crisp_env/crisp_py/hand_to_eye_calibration/Azure-Kinect-Sensor-SDK
+crisp_env/crisp_py/hand_to_eye_calibration/roahm-deformable-objects/captured_calibration_data
+crisp_env/crisp_py/hand_to_eye_calibration/roahm-deformable-objects/zsy-testmycode/debug
+crisp_env/crisp_py/hand_to_eye_calibration/roahm-deformable-objects/zsy-testmycode/results
+crisp_env/crisp_py/deformable_seg/TrackDeform3d_paper_vis
+crisp_env/crisp_py/deformable_seg/viz_data
+crisp_env/crisp_py/zed_capture/checkerboard_HD2K
+crisp_env/crisp_py/zed_capture/checkerboard_HD2K_tilt
+crisp_env/crisp_py/zed_capture/checkerboard_patterns

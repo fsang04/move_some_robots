@@ -1,0 +1,111 @@
++ PY=/home/yizhouch/miniforge3/envs/ffs_export/bin/python
++ FFS=/home/yizhouch/move_some_robots/Fast-FoundationStereo
++ OUT=/home/yizhouch/move_some_robots/ffs_engines
++ CKPT=/home/yizhouch/move_some_robots/Fast-FoundationStereo/weights/weights/23-36-37/model_best_bp2_serialize.pth
++ cd /home/yizhouch/move_some_robots/Fast-FoundationStereo
++ /home/yizhouch/miniforge3/envs/ffs_export/bin/python scripts/make_single_onnx.py --model_dir /home/yizhouch/move_some_robots/Fast-FoundationStereo/weights/weights/23-36-37/model_best_bp2_serialize.pth --save_path /home/yizhouch/move_some_robots/ffs_engines --height 736 --width 1280 --valid_iters 8 --max_disp 192 --onnx_name ffs_23-36-37_it8_736x1280
+2026-08-20 14:34:20,938 INFO Loading model from /home/yizhouch/move_some_robots/Fast-FoundationStereo/weights/weights/23-36-37/model_best_bp2_serialize.pth
+2026-08-20 14:34:21,277 INFO Exporting ONNX (736x1280) → /home/yizhouch/move_some_robots/ffs_engines/ffs_23-36-37_it8_736x1280.onnx
+/home/yizhouch/move_some_robots/Fast-FoundationStereo/scripts/../core/submodule.py:365: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  if x.shape != rem.shape:
+/home/yizhouch/move_some_robots/Fast-FoundationStereo/scripts/../core/submodule.py:572: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  if pe.shape[1]<x.shape[1]:
+/home/yizhouch/move_some_robots/Fast-FoundationStereo/scripts/../core/geometry.py:76: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast(enabled=False):
+/home/yizhouch/move_some_robots/Fast-FoundationStereo/scripts/../core/submodule.py:290: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  if x.shape != rem.shape:
+/home/yizhouch/miniforge3/envs/ffs_export/lib/python3.12/site-packages/torch/onnx/symbolic_helper.py:1459: UserWarning: ONNX export mode is set to TrainingMode.EVAL, but operator 'instance_norm' is set to train=True. Exporting with train=True.
+  warnings.warn(
+/home/yizhouch/miniforge3/envs/ffs_export/lib/python3.12/site-packages/torch/onnx/_internal/jit_utils.py:308: UserWarning: Constant folding - Only steps=1 can be constant folded for opset >= 10 onnx::Slice op. Constant folding not applied. (Triggered internally at /pytorch/torch/csrc/jit/passes/onnx/constant_fold.cpp:178.)
+  _C._jit_pass_onnx_node_shape_type_inference(node, params_dict, opset_version)
+/home/yizhouch/miniforge3/envs/ffs_export/lib/python3.12/site-packages/torch/onnx/utils.py:657: UserWarning: Constant folding - Only steps=1 can be constant folded for opset >= 10 onnx::Slice op. Constant folding not applied. (Triggered internally at /pytorch/torch/csrc/jit/passes/onnx/constant_fold.cpp:178.)
+  _C._jit_pass_onnx_graph_shape_type_inference(
+/home/yizhouch/miniforge3/envs/ffs_export/lib/python3.12/site-packages/torch/onnx/utils.py:1127: UserWarning: Constant folding - Only steps=1 can be constant folded for opset >= 10 onnx::Slice op. Constant folding not applied. (Triggered internally at /pytorch/torch/csrc/jit/passes/onnx/constant_fold.cpp:178.)
+  _C._jit_pass_onnx_graph_shape_type_inference(
+2026-08-20 14:34:24,264 INFO ONNX model  : /home/yizhouch/move_some_robots/ffs_engines/ffs_23-36-37_it8_736x1280.onnx
+2026-08-20 14:34:24,264 INFO Config      : /home/yizhouch/move_some_robots/ffs_engines/ffs_23-36-37_it8_736x1280.yaml
+2026-08-20 14:34:24,264 INFO Resolution  : 736 x 1280
+2026-08-20 14:34:24,264 INFO Build TRT engine:
+  trtexec --onnx=/home/yizhouch/move_some_robots/ffs_engines/ffs_23-36-37_it8_736x1280.onnx --saveEngine=/home/yizhouch/move_some_robots/ffs_engines/ffs_23-36-37_it8_736x1280.engine --fp16
++ /home/yizhouch/miniforge3/envs/ffs_export/bin/python scripts/make_single_onnx.py --model_dir /home/yizhouch/move_some_robots/Fast-FoundationStereo/weights/weights/23-36-37/model_best_bp2_serialize.pth --save_path /home/yizhouch/move_some_robots/ffs_engines --height 384 --width 640 --valid_iters 8 --max_disp 192 --onnx_name ffs_23-36-37_it8_384x640
+2026-08-20 14:34:27,561 INFO Loading model from /home/yizhouch/move_some_robots/Fast-FoundationStereo/weights/weights/23-36-37/model_best_bp2_serialize.pth
+2026-08-20 14:34:27,887 INFO Exporting ONNX (384x640) → /home/yizhouch/move_some_robots/ffs_engines/ffs_23-36-37_it8_384x640.onnx
+/home/yizhouch/move_some_robots/Fast-FoundationStereo/scripts/../core/submodule.py:365: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  if x.shape != rem.shape:
+/home/yizhouch/move_some_robots/Fast-FoundationStereo/scripts/../core/submodule.py:572: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  if pe.shape[1]<x.shape[1]:
+/home/yizhouch/move_some_robots/Fast-FoundationStereo/scripts/../core/geometry.py:76: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast(enabled=False):
+/home/yizhouch/move_some_robots/Fast-FoundationStereo/scripts/../core/submodule.py:290: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  if x.shape != rem.shape:
+/home/yizhouch/miniforge3/envs/ffs_export/lib/python3.12/site-packages/torch/onnx/symbolic_helper.py:1459: UserWarning: ONNX export mode is set to TrainingMode.EVAL, but operator 'instance_norm' is set to train=True. Exporting with train=True.
+  warnings.warn(
+/home/yizhouch/miniforge3/envs/ffs_export/lib/python3.12/site-packages/torch/onnx/_internal/jit_utils.py:308: UserWarning: Constant folding - Only steps=1 can be constant folded for opset >= 10 onnx::Slice op. Constant folding not applied. (Triggered internally at /pytorch/torch/csrc/jit/passes/onnx/constant_fold.cpp:178.)
+  _C._jit_pass_onnx_node_shape_type_inference(node, params_dict, opset_version)
+/home/yizhouch/miniforge3/envs/ffs_export/lib/python3.12/site-packages/torch/onnx/utils.py:657: UserWarning: Constant folding - Only steps=1 can be constant folded for opset >= 10 onnx::Slice op. Constant folding not applied. (Triggered internally at /pytorch/torch/csrc/jit/passes/onnx/constant_fold.cpp:178.)
+  _C._jit_pass_onnx_graph_shape_type_inference(
+/home/yizhouch/miniforge3/envs/ffs_export/lib/python3.12/site-packages/torch/onnx/utils.py:1127: UserWarning: Constant folding - Only steps=1 can be constant folded for opset >= 10 onnx::Slice op. Constant folding not applied. (Triggered internally at /pytorch/torch/csrc/jit/passes/onnx/constant_fold.cpp:178.)
+  _C._jit_pass_onnx_graph_shape_type_inference(
+2026-08-20 14:34:30,453 INFO ONNX model  : /home/yizhouch/move_some_robots/ffs_engines/ffs_23-36-37_it8_384x640.onnx
+2026-08-20 14:34:30,453 INFO Config      : /home/yizhouch/move_some_robots/ffs_engines/ffs_23-36-37_it8_384x640.yaml
+2026-08-20 14:34:30,453 INFO Resolution  : 384 x 640
+2026-08-20 14:34:30,453 INFO Build TRT engine:
+  trtexec --onnx=/home/yizhouch/move_some_robots/ffs_engines/ffs_23-36-37_it8_384x640.onnx --saveEngine=/home/yizhouch/move_some_robots/ffs_engines/ffs_23-36-37_it8_384x640.engine --fp16
++ /home/yizhouch/miniforge3/envs/ffs_export/bin/python /home/yizhouch/move_some_robots/ffs_engines/build_engine.py /home/yizhouch/move_some_robots/ffs_engines/ffs_23-36-37_it8_736x1280.onnx /home/yizhouch/move_some_robots/ffs_engines/ffs_23-36-37_it8_736x1280.engine
+TensorRT 11.2.1.2
+Traceback (most recent call last):
+  File "/home/yizhouch/move_some_robots/ffs_engines/build_engine.py", line 43, in <module>
+    main(sys.argv[1], sys.argv[2])
+  File "/home/yizhouch/move_some_robots/ffs_engines/build_engine.py", line 31, in main
+    config.set_flag(trt.BuilderFlag.FP16)
+                    ^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'tensorrt_bindings.tensorrt.BuilderFlag' has no attribute 'FP16'
+Collecting tensorrt-cu12==10.16.1.11
+  Downloading tensorrt_cu12-10.16.1.11.tar.gz (17 kB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting tensorrt_cu12_libs==10.16.1.11 (from tensorrt-cu12==10.16.1.11)
+  Downloading tensorrt_cu12_libs-10.16.1.11.tar.gz (15 kB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting tensorrt_cu12_bindings==10.16.1.11 (from tensorrt-cu12==10.16.1.11)
+  Downloading tensorrt_cu12_bindings-10.16.1.11-cp312-none-manylinux_2_28_x86_64.whl.metadata (664 bytes)
+Downloading tensorrt_cu12_bindings-10.16.1.11-cp312-none-manylinux_2_28_x86_64.whl (1.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 35.2 MB/s  0:00:00
+Building wheels for collected packages: tensorrt-cu12, tensorrt_cu12_libs
+  Building wheel for tensorrt-cu12 (pyproject.toml): started
+  Building wheel for tensorrt-cu12 (pyproject.toml): finished with status 'done'
+  Created wheel for tensorrt-cu12: filename=tensorrt_cu12-10.16.1.11-py3-none-any.whl size=23075 sha256=17b6920f09422331e97ab6f2e3edf6f9a56eae54ee1133a9de20bb9200439531
+  Stored in directory: /home/yizhouch/.cache/pip/wheels/a3/1f/f9/d233aa6ae53c157b5897006b837466f7fa6170a51bef410575
+  Building wheel for tensorrt_cu12_libs (pyproject.toml): started
+  Building wheel for tensorrt_cu12_libs (pyproject.toml): finished with status 'done'
+  Created wheel for tensorrt_cu12_libs: filename=tensorrt_cu12_libs-10.16.1.11-py3-none-manylinux_2_28_x86_64.whl size=4304294549 sha256=8e45036efeb964d323231544442a73619201136ccc84392560254cc8f0d516e4
+  Stored in directory: /home/yizhouch/.cache/pip/wheels/b5/f0/ba/4cc5eb6ac13f08817680d4442c19eba3479ac333f8ae9e405b
+Successfully built tensorrt-cu12 tensorrt_cu12_libs
+Installing collected packages: tensorrt_cu12_libs, tensorrt_cu12_bindings, tensorrt-cu12
+  Attempting uninstall: tensorrt_cu12_libs
+    Found existing installation: tensorrt_cu12_libs 11.2.1.2
+    Uninstalling tensorrt_cu12_libs-11.2.1.2:
+      Successfully uninstalled tensorrt_cu12_libs-11.2.1.2
+  Attempting uninstall: tensorrt_cu12_bindings
+    Found existing installation: tensorrt_cu12_bindings 11.2.1.2
+    Uninstalling tensorrt_cu12_bindings-11.2.1.2:
+      Successfully uninstalled tensorrt_cu12_bindings-11.2.1.2
+  Attempting uninstall: tensorrt-cu12
+    Found existing installation: tensorrt_cu12 11.2.1.2
+    Uninstalling tensorrt_cu12-11.2.1.2:
+      Successfully uninstalled tensorrt_cu12-11.2.1.2
+
+Successfully installed tensorrt-cu12-10.16.1.11 tensorrt_cu12_bindings-10.16.1.11 tensorrt_cu12_libs-10.16.1.11
+TensorRT 10.16.1.11
+engine -> /home/yizhouch/move_some_robots/ffs_engines/ffs_23-36-37_it8_736x1280.engine
+TensorRT 10.16.1.11
+engine -> /home/yizhouch/move_some_robots/ffs_engines/ffs_23-36-37_it8_384x640.engine

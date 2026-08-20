@@ -1,0 +1,82 @@
+Collecting tensorrt-cu12==11.2.1.2
+  Using cached tensorrt_cu12-11.2.1.2.tar.gz (17 kB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting cuda-python<12.7,>=12.4
+  Downloading cuda_python-12.6.2.post1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (12 kB)
+Collecting tensorrt_cu12_libs==11.2.1.2 (from tensorrt-cu12==11.2.1.2)
+  Using cached tensorrt_cu12_libs-11.2.1.2.tar.gz (15 kB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting tensorrt_cu12_bindings==11.2.1.2 (from tensorrt-cu12==11.2.1.2)
+  Downloading tensorrt_cu12_bindings-11.2.1.2-cp311-none-manylinux_2_28_x86_64.whl.metadata (684 bytes)
+Downloading tensorrt_cu12_bindings-11.2.1.2-cp311-none-manylinux_2_28_x86_64.whl (1.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 32.4 MB/s eta 0:00:00
+Downloading cuda_python-12.6.2.post1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (25.7 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 25.7/25.7 MB 25.4 MB/s eta 0:00:00
+Building wheels for collected packages: tensorrt-cu12, tensorrt_cu12_libs
+  Building wheel for tensorrt-cu12 (pyproject.toml): started
+  Building wheel for tensorrt-cu12 (pyproject.toml): finished with status 'done'
+  Created wheel for tensorrt-cu12: filename=tensorrt_cu12-11.2.1.2-py3-none-any.whl size=23047 sha256=c7ee0ee710b6debb844dc2cdcb4448f27dc5f00f3dc2f25da0fb33f13953a609
+  Stored in directory: /home/yizhouch/.cache/pip/wheels/83/80/d8/2cfffe0ff9c2ffbc7baebb6d069893208310f1aa621104ddf0
+  Building wheel for tensorrt_cu12_libs (pyproject.toml): started
+  Building wheel for tensorrt_cu12_libs (pyproject.toml): finished with status 'done'
+  Created wheel for tensorrt_cu12_libs: filename=tensorrt_cu12_libs-11.2.1.2-py3-none-manylinux_2_28_x86_64.whl size=4388039118 sha256=d13d25345b1f87279478e2c63e0f1286c00c0824bc9eb0915ad0935857bc4e8e
+  Stored in directory: /home/yizhouch/.cache/pip/wheels/89/27/f9/94592649b7a2976b71b38fae479d0ee3e517924871c26804f9
+Successfully built tensorrt-cu12 tensorrt_cu12_libs
+Installing collected packages: tensorrt_cu12_libs, tensorrt_cu12_bindings, cuda-python, tensorrt-cu12
+
+Successfully installed cuda-python-12.6.2.post1 tensorrt-cu12-11.2.1.2 tensorrt_cu12_bindings-11.2.1.2 tensorrt_cu12_libs-11.2.1.2
+Collecting tensorrt-cu12==10.16.1.11
+  Using cached tensorrt_cu12-10.16.1.11.tar.gz (17 kB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting tensorrt_cu12_libs==10.16.1.11 (from tensorrt-cu12==10.16.1.11)
+  Using cached tensorrt_cu12_libs-10.16.1.11.tar.gz (15 kB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting tensorrt_cu12_bindings==10.16.1.11 (from tensorrt-cu12==10.16.1.11)
+  Downloading tensorrt_cu12_bindings-10.16.1.11-cp311-none-manylinux_2_28_x86_64.whl.metadata (664 bytes)
+Downloading tensorrt_cu12_bindings-10.16.1.11-cp311-none-manylinux_2_28_x86_64.whl (1.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 33.7 MB/s eta 0:00:00
+Building wheels for collected packages: tensorrt-cu12, tensorrt_cu12_libs
+  Building wheel for tensorrt-cu12 (pyproject.toml): started
+  Building wheel for tensorrt-cu12 (pyproject.toml): finished with status 'done'
+  Created wheel for tensorrt-cu12: filename=tensorrt_cu12-10.16.1.11-py3-none-any.whl size=23075 sha256=b1ac8df77793bcec597a9b84a50fd479f08daa6f07886222354e08b662aa56e9
+  Stored in directory: /home/yizhouch/.cache/pip/wheels/c4/3e/cc/79a622c391be57f14696f83b1a3f0bf100bf0f5fc4c8810d90
+  Building wheel for tensorrt_cu12_libs (pyproject.toml): started
+  Building wheel for tensorrt_cu12_libs (pyproject.toml): finished with status 'done'
+  Created wheel for tensorrt_cu12_libs: filename=tensorrt_cu12_libs-10.16.1.11-py3-none-manylinux_2_28_x86_64.whl size=4304294549 sha256=8e45036efeb964d323231544442a73619201136ccc84392560254cc8f0d516e4
+  Stored in directory: /home/yizhouch/.cache/pip/wheels/d4/03/9e/318a5c1faeafcb4b877e94cf3a4dc802a152ba86b025589a1b
+Successfully built tensorrt-cu12 tensorrt_cu12_libs
+Installing collected packages: tensorrt_cu12_libs, tensorrt_cu12_bindings, tensorrt-cu12
+  Attempting uninstall: tensorrt_cu12_libs
+    Found existing installation: tensorrt_cu12_libs 11.2.1.2
+    Uninstalling tensorrt_cu12_libs-11.2.1.2:
+      Successfully uninstalled tensorrt_cu12_libs-11.2.1.2
+  Attempting uninstall: tensorrt_cu12_bindings
+    Found existing installation: tensorrt_cu12_bindings 11.2.1.2
+    Uninstalling tensorrt_cu12_bindings-11.2.1.2:
+      Successfully uninstalled tensorrt_cu12_bindings-11.2.1.2
+  Attempting uninstall: tensorrt-cu12
+    Found existing installation: tensorrt_cu12 11.2.1.2
+    Uninstalling tensorrt_cu12-11.2.1.2:
+      Successfully uninstalled tensorrt_cu12-11.2.1.2
+
+Successfully installed tensorrt-cu12-10.16.1.11 tensorrt_cu12_bindings-10.16.1.11 tensorrt_cu12_libs-10.16.1.11

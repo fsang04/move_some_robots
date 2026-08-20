@@ -1,0 +1,2021 @@
+[INFO] --result-tag not given; derived 'ffs' from --rgbd-file
+[INFO] Loaded depth stack: /home/yizhouch/move_some_robots/crisp_env/crisp_py/hand_to_eye_calibration/roahm-deformable-objects/captured_calibration_data/zed_calib_fs_002/left_calibration_rgbd_ffs.npz, shape=(72, 1242, 2208)
+[apriltag_image] ZED intrinsics from zed_intrinsics_2208x1242.npz (2208x1242): fx=1414.575439 fy=1414.575439 cx=1101.675415 cy=669.754150
+[INFO] camera=zed: depth stack is 2208x1242
+[INFO] depth back-projection intrinsics: fx=1414.575439 fy=1414.575439 cx=1101.675415 cy=669.754150
+[depth-fix] disparity a=1.0120, d=+5.70 px applied (fx=1414.58 px, B=120.0 mm, unit=mm): -43.6 mm @ 1.0 m, -88.1 mm @ 1.5 m
+[depth-fix] value from /home/yizhouch/move_some_robots/crisp_env/crisp_py/zed_capture/zed_depth_correction.json
+
+====================================================================================================
+[INFO] Nonlinear calibration
+====================================================================================================
+[INFO] side: left
+[INFO] seq: zed_calib_fs_002
+[INFO] frames_dir: /home/yizhouch/move_some_robots/crisp_env/crisp_py/hand_to_eye_calibration/roahm-deformable-objects/captured_calibration_data/zed_calib_fs_002/frames
+[INFO] pose_file: /home/yizhouch/move_some_robots/crisp_env/crisp_py/hand_to_eye_calibration/roahm-deformable-objects/captured_calibration_data/zed_calib_fs_002/left_calibration_poses.npz
+[INFO] max_images: 70
+[INFO] exclude_images: []
+[INFO] use_depth_translation: True
+[INFO] rgbd_file: left_calibration_rgbd_ffs.npz (result_tag=ffs)
+[INFO] output_dir: /home/yizhouch/move_some_robots/crisp_env/crisp_py/hand_to_eye_calibration/roahm-deformable-objects/zsy-testmycode/results/zed_calib_fs_002
+====================================================================================================
+[INFO] Loaded depth stack: /home/yizhouch/move_some_robots/crisp_env/crisp_py/hand_to_eye_calibration/roahm-deformable-objects/captured_calibration_data/zed_calib_fs_002/left_calibration_rgbd_ffs.npz, shape=(72, 1242, 2208)
+Reading calibration_left_image_0.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 70.20694732666016
+       Homography: [[-0.0905 0.7158 7.4893]
+                    [-0.7347 -0.0233 7.3401]
+                    [-0.0001 0.0000 0.0119]]
+           Center: [630.7448 618.1771]
+          Corners: [[575.6059 679.0941]
+                    [565.8469 561.2462]
+                    [686.3597 556.7343]
+                    [694.9568 674.5063]]
+             Pose: [[-0.0340 0.9982 -0.0496 -0.3779]
+                    [-0.9908 -0.0401 -0.1290 -0.0414]
+                    [-0.1307 0.0448 0.9904 1.1355]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.24309082158398027
+       FinalError: 0.008681245783988807
+
+[DEPTH] image 0: source=original, depth=1138.5 mm, |t_depth - t_apriltag|=3.3 mm
+Reading calibration_left_image_1.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 59.07638931274414
+       Homography: [[0.0731 -0.7376 -9.7447]
+                    [0.7289 -0.0030 -8.1240]
+                    [0.0000 -0.0000 -0.0138]]
+           Center: [706.1595 588.7192]
+          Corners: [[657.6874 641.0081]
+                    [651.3688 538.9573]
+                    [754.6788 536.3795]
+                    [760.2875 637.8792]]
+             Pose: [[-0.0252 0.9985 -0.0490 -0.3691]
+                    [-0.9926 -0.0308 -0.1172 -0.0756]
+                    [-0.1185 0.0457 0.9919 1.3198]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.12320659503409871
+       FinalError: 0.006094718428710828
+
+[DEPTH] image 1: source=original, depth=1322.0 mm, |t_depth - t_apriltag|=2.2 mm
+Reading calibration_left_image_2.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 59.91852569580078
+       Homography: [[-0.0588 0.7444 10.2071]
+                    [-0.7183 0.0063 7.9626]
+                    [-0.0000 0.0000 0.0139]]
+           Center: [736.6755 574.6867]
+          Corners: [[688.2286 627.0079]
+                    [682.3340 525.1836]
+                    [784.9775 522.5220]
+                    [790.4420 623.6660]]
+             Pose: [[-0.0279 0.9983 -0.0516 -0.3422]
+                    [-0.9938 -0.0332 -0.1060 -0.0890]
+                    [-0.1075 0.0484 0.9930 1.3259]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.25493499493118865
+       FinalError: 0.017664695684133567
+
+[DEPTH] image 2: source=original, depth=1329.2 mm, |t_depth - t_apriltag|=3.5 mm
+Reading calibration_left_image_3.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 60.13819885253906
+       Homography: [[0.0778 -0.7290 -10.5846]
+                    [0.7312 0.0075 -7.7862]
+                    [0.0001 -0.0000 -0.0139]]
+           Center: [762.1261 560.6365]
+          Corners: [[713.9328 612.7013]
+                    [707.8956 511.3160]
+                    [810.4958 508.3811]
+                    [815.7686 609.4223]]
+             Pose: [[-0.0285 0.9977 -0.0619 -0.3193]
+                    [-0.9931 -0.0353 -0.1121 -0.1026]
+                    [-0.1140 0.0583 0.9918 1.3301]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.01041228207727973
+       FinalError: 0.0007441387976352665
+
+[DEPTH] image 3: source=original, depth=1332.8 mm, |t_depth - t_apriltag|=2.8 mm
+Reading calibration_left_image_4.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 60.27824401855469
+       Homography: [[0.0448 -0.7171 -10.8539]
+                    [0.7055 0.0203 -7.6042]
+                    [0.0000 -0.0000 -0.0139]]
+           Center: [782.3126 548.0851]
+          Corners: [[734.1879 600.6677]
+                    [728.1460 499.2114]
+                    [830.3932 495.5506]
+                    [836.3679 596.8585]]
+             Pose: [[-0.0369 0.9974 -0.0616 -0.3000]
+                    [-0.9946 -0.0426 -0.0943 -0.1142]
+                    [-0.0966 0.0578 0.9936 1.3290]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.4909478561900351
+       FinalError: 0.03431494009197287
+
+[DEPTH] image 4: source=original, depth=1331.0 mm, |t_depth - t_apriltag|=2.1 mm
+Reading calibration_left_image_5.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 59.94028091430664
+       Homography: [[-0.0835 0.7296 11.0255]
+                    [-0.7284 -0.0154 7.4130]
+                    [-0.0000 0.0000 0.0138]]
+           Center: [798.1983 536.6699]
+          Corners: [[750.4067 589.7205]
+                    [743.2533 487.6199]
+                    [846.1198 483.4752]
+                    [852.5669 585.2053]]
+             Pose: [[-0.0412 0.9974 -0.0597 -0.2838]
+                    [-0.9921 -0.0480 -0.1161 -0.1244]
+                    [-0.1187 0.0544 0.9914 1.3228]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.026859138486071188
+       FinalError: 0.002605078181326936
+
+[DEPTH] image 5: source=original, depth=1326.5 mm, |t_depth - t_apriltag|=3.8 mm
+Reading calibration_left_image_6.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 60.91828155517578
+       Homography: [[0.0991 -0.7447 -11.0958]
+                    [0.7343 0.0123 -7.2080]
+                    [0.0001 -0.0000 -0.0137]]
+           Center: [808.8539 525.4449]
+          Corners: [[761.2807 579.4825]
+                    [753.0400 476.4216]
+                    [856.4908 471.3347]
+                    [863.8299 573.7322]]
+             Pose: [[-0.0520 0.9971 -0.0547 -0.2720]
+                    [-0.9919 -0.0580 -0.1134 -0.1340]
+                    [-0.1163 0.0484 0.9920 1.3136]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.06186972806158321
+       FinalError: 0.00850208926491394
+
+[DEPTH] image 6: source=original, depth=1316.6 mm, |t_depth - t_apriltag|=3.1 mm
+Reading calibration_left_image_7.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 61.7657470703125
+       Homography: [[-0.0984 0.7113 11.0382]
+                    [-0.7308 -0.0392 7.0017]
+                    [-0.0000 0.0000 0.0136]]
+           Center: [812.6920 515.5023]
+          Corners: [[765.2292 570.4557]
+                    [756.2625 466.5440]
+                    [860.4455 460.2122]
+                    [868.6487 564.0504]]
+             Pose: [[-0.0614 0.9975 -0.0340 -0.2653]
+                    [-0.9925 -0.0646 -0.1035 -0.1416]
+                    [-0.1054 0.0274 0.9941 1.2988]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.008672532027114765
+       FinalError: 0.000697699550728648
+
+[DEPTH] image 7: source=original, depth=1303.0 mm, |t_depth - t_apriltag|=4.3 mm
+Reading calibration_left_image_8.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 63.15487289428711
+       Homography: [[0.0999 -0.7045 -10.8202]
+                    [0.7285 0.0489 -6.7834]
+                    [0.0000 -0.0000 -0.0134]]
+           Center: [808.1175 506.6281]
+          Corners: [[760.3566 562.7625]
+                    [750.6276 457.4472]
+                    [856.2068 450.1078]
+                    [865.2122 555.4707]]
+             Pose: [[-0.0701 0.9970 -0.0322 -0.2657]
+                    [-0.9933 -0.0727 -0.0903 -0.1477]
+                    [-0.0924 0.0257 0.9954 1.2805]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.03756217832189353
+       FinalError: 0.002695113168866341
+
+[DEPTH] image 8: source=original, depth=1283.1 mm, |t_depth - t_apriltag|=2.7 mm
+Reading calibration_left_image_9.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 63.43217086791992
+       Homography: [[0.0918 -0.7218 -10.4401]
+                    [0.7220 0.0373 -6.5319]
+                    [0.0000 -0.0000 -0.0131]]
+           Center: [795.4212 497.6606]
+          Corners: [[746.8099 555.0535]
+                    [736.5587 447.3911]
+                    [844.1124 440.1732]
+                    [853.7854 547.5045]]
+             Pose: [[-0.0693 0.9970 -0.0356 -0.2720]
+                    [-0.9917 -0.0727 -0.1062 -0.1528]
+                    [-0.1085 0.0279 0.9937 1.2564]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.10826599700497658
+       FinalError: 0.00891568640718765
+
+[DEPTH] image 9: source=original, depth=1257.8 mm, |t_depth - t_apriltag|=1.4 mm
+Reading calibration_left_image_10.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 64.25115203857422
+       Homography: [[-0.0941 0.6997 9.9475]
+                    [-0.7237 -0.0543 6.2840]
+                    [-0.0000 -0.0000 0.0128]]
+           Center: [775.3891 489.8271]
+          Corners: [[725.9431 548.7715]
+                    [715.2740 438.7335]
+                    [825.1419 430.5171]
+                    [835.2086 540.6694]]
+             Pose: [[-0.0747 0.9971 -0.0164 -0.2827]
+                    [-0.9935 -0.0758 -0.0847 -0.1559]
+                    [-0.0857 0.0100 0.9963 1.2259]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.04675048567570808
+       FinalError: 0.0025852934929151278
+
+[DEPTH] image 10: source=original, depth=1227.8 mm, |t_depth - t_apriltag|=2.0 mm
+Reading calibration_left_image_11.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 65.27568054199219
+       Homography: [[0.0962 -0.7142 -9.3719]
+                    [0.7242 0.0433 -6.0431]
+                    [0.0000 -0.0000 -0.0125]]
+           Center: [749.4937 483.2850]
+          Corners: [[698.8264 543.6920]
+                    [687.5679 430.6419]
+                    [800.3414 422.6628]
+                    [810.9012 535.4875]]
+             Pose: [[-0.0724 0.9971 -0.0235 -0.2979]
+                    [-0.9925 -0.0743 -0.0973 -0.1577]
+                    [-0.0988 0.0163 0.9950 1.1966]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.06784014335657153
+       FinalError: 0.003931139390565067
+
+[DEPTH] image 11: source=original, depth=1198.7 mm, |t_depth - t_apriltag|=2.2 mm
+Reading calibration_left_image_12.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 66.78889465332031
+       Homography: [[0.0882 -0.6983 -8.7063]
+                    [0.7205 0.0532 -5.8216]
+                    [0.0000 0.0000 -0.0122]]
+           Center: [715.4167 478.3740]
+          Corners: [[663.2009 540.2579]
+                    [652.0511 424.3677]
+                    [767.9607 416.1011]
+                    [778.5380 532.1721]]
+             Pose: [[-0.0717 0.9972 -0.0223 -0.3179]
+                    [-0.9941 -0.0733 -0.0802 -0.1575]
+                    [-0.0816 0.0165 0.9965 1.1644]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.18803178332980952
+       FinalError: 0.008184525865957495
+
+[DEPTH] image 12: source=original, depth=1165.9 mm, |t_depth - t_apriltag|=1.6 mm
+Reading calibration_left_image_13.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 1
+         Goodness: 0.0
+  Decision margin: 68.66758728027344
+       Homography: [[0.0848 -0.7136 -8.0042]
+                    [0.7192 0.0413 -5.6071]
+                    [0.0000 -0.0000 -0.0118]]
+           Center: [676.8366 474.1376]
+          Corners: [[622.8552 537.7539]
+                    [611.5641 418.3431]
+                    [730.9582 410.3562]
+                    [741.6335 529.5256]]
+             Pose: [[-0.0696 0.9972 -0.0266 -0.3401]
+                    [-0.9947 -0.0714 -0.0746 -0.1566]
+                    [-0.0762 0.0213 0.9969 1.1325]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.052428758122924884
+       FinalError: 0.002211536363507754
+
+[DEPTH] image 13: source=original, depth=1133.1 mm, |t_depth - t_apriltag|=0.6 mm
+Reading calibration_left_image_14.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 69.71066284179688
+       Homography: [[0.0773 -0.7145 -7.2593]
+                    [0.7170 0.0352 -5.4003]
+                    [0.0000 -0.0000 -0.0115]]
+           Center: [632.9328 470.8491]
+          Corners: [[576.9326 536.0179]
+                    [565.8686 412.8455]
+                    [689.0195 405.5796]
+                    [699.5300 528.4487]]
+             Pose: [[-0.0620 0.9977 -0.0269 -0.3642]
+                    [-0.9950 -0.0639 -0.0770 -0.1545]
+                    [-0.0786 0.0220 0.9967 1.0991]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.1863168647479624
+       FinalError: 0.006840217941284868
+
+[DEPTH] image 14: source=original, depth=1100.1 mm, |t_depth - t_apriltag|=1.1 mm
+Reading calibration_left_image_15.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 70.56735229492188
+       Homography: [[-0.0748 0.7082 6.5095]
+                    [-0.7178 -0.0343 5.2270]
+                    [-0.0000 0.0000 0.0111]]
+           Center: [585.1596 469.8785]
+          Corners: [[527.1526 536.3951]
+                    [516.2325 409.5886]
+                    [643.4033 403.0907]
+                    [653.6991 529.8293]]
+             Pose: [[-0.0534 0.9981 -0.0301 -0.3897]
+                    [-0.9950 -0.0557 -0.0825 -0.1507]
+                    [-0.0840 0.0255 0.9961 1.0673]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.30514475302069005
+       FinalError: 0.009769933734742942
+
+[DEPTH] image 15: source=original, depth=1067.1 mm, |t_depth - t_apriltag|=0.2 mm
+Reading calibration_left_image_16.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 71.49236297607422
+       Homography: [[-0.0680 0.7165 5.7981]
+                    [-0.7147 -0.0244 5.0847]
+                    [-0.0000 0.0000 0.0108]]
+           Center: [536.6196 470.5980]
+          Corners: [[476.5767 538.9757]
+                    [465.7384 408.2284]
+                    [596.6678 402.2142]
+                    [606.9766 532.5062]]
+             Pose: [[-0.0497 0.9984 -0.0284 -0.4141]
+                    [-0.9956 -0.0518 -0.0779 -0.1459]
+                    [-0.0792 0.0244 0.9966 1.0367]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.5389511398450746
+       FinalError: 0.015420066427958982
+
+[DEPTH] image 16: source=original, depth=1037.6 mm, |t_depth - t_apriltag|=1.0 mm
+Reading calibration_left_image_17.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 72.88333129882812
+       Homography: [[0.0684 -0.7120 -5.1356]
+                    [0.7199 0.0237 -4.9790]
+                    [0.0000 -0.0000 -0.0105]]
+           Center: [488.9605 474.0514]
+          Corners: [[426.8906 543.8431]
+                    [416.3478 409.4329]
+                    [551.2603 404.0010]
+                    [560.9861 538.1475]]
+             Pose: [[-0.0431 0.9987 -0.0256 -0.4364]
+                    [-0.9962 -0.0449 -0.0747 -0.1394]
+                    [-0.0758 0.0223 0.9969 1.0075]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.07086916268882472
+       FinalError: 0.0017906482321925865
+
+[DEPTH] image 17: source=original, depth=1010.0 mm, |t_depth - t_apriltag|=2.7 mm
+Reading calibration_left_image_18.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 73.8833236694336
+       Homography: [[-0.0547 0.7107 4.5474]
+                    [-0.7126 -0.0184 4.9150]
+                    [-0.0000 0.0000 0.0102]]
+           Center: [444.0851 479.9879]
+          Corners: [[379.6863 550.9022]
+                    [370.1988 413.1520]
+                    [508.5959 408.9502]
+                    [517.6282 546.5134]]
+             Pose: [[-0.0330 0.9991 -0.0267 -0.4568]
+                    [-0.9967 -0.0349 -0.0733 -0.1317]
+                    [-0.0741 0.0242 0.9970 0.9827]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.8921603828145046
+       FinalError: 0.02054124148979527
+
+[DEPTH] image 18: source=original, depth=984.2 mm, |t_depth - t_apriltag|=1.6 mm
+Reading calibration_left_image_19.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 74.84652709960938
+       Homography: [[-0.0558 0.7091 4.0780]
+                    [-0.7176 -0.0187 4.8840]
+                    [-0.0000 0.0000 0.0100]]
+           Center: [406.9387 487.3632]
+          Corners: [[340.8819 559.4193]
+                    [331.5934 418.8574]
+                    [473.3316 414.9406]
+                    [481.8424 555.4674]]
+             Pose: [[-0.0297 0.9992 -0.0274 -0.4724]
+                    [-0.9972 -0.0315 -0.0682 -0.1240]
+                    [-0.0690 0.0253 0.9973 0.9619]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.3761383910962345
+       FinalError: 0.008128641797123677
+
+[DEPTH] image 19: source=original, depth=963.8 mm, |t_depth - t_apriltag|=2.2 mm
+Reading calibration_left_image_20.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 75.73379516601562
+       Homography: [[-0.0486 0.7169 3.7229]
+                    [-0.7138 -0.0052 4.9033]
+                    [-0.0000 0.0000 0.0098]]
+           Center: [377.9726 497.8071]
+          Corners: [[310.2013 570.9614]
+                    [301.5209 427.6724]
+                    [445.7073 424.6924]
+                    [453.7836 567.3541]]
+             Pose: [[-0.0246 0.9993 -0.0268 -0.4836]
+                    [-0.9975 -0.0264 -0.0661 -0.1148]
+                    [-0.0668 0.0251 0.9975 0.9453]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.7085805041566662
+       FinalError: 0.014649384974867
+
+[DEPTH] image 20: source=original, depth=947.1 mm, |t_depth - t_apriltag|=2.1 mm
+Reading calibration_left_image_21.png...
+
+Detected 0 tags
+
+[WARN] image 21: no AprilTag detection even after enhancement
+Reading calibration_left_image_22.png...
+
+Detected 0 tags
+
+[WARN] image 22: no AprilTag detection even after enhancement
+Reading calibration_left_image_23.png...
+
+Detected 0 tags
+
+[WARN] image 23: no AprilTag detection even after enhancement
+Reading calibration_left_image_24.png...
+
+Detected 0 tags
+
+[WARN] image 24: no AprilTag detection even after enhancement
+Reading calibration_left_image_25.png...
+
+Detected 0 tags
+
+[WARN] image 25: no AprilTag detection even after enhancement
+Reading calibration_left_image_26.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 77.8168716430664
+       Homography: [[-0.0541 0.7165 4.3615]
+                    [-0.7254 0.0047 5.7649]
+                    [-0.0000 0.0000 0.0098]]
+           Center: [442.8544 585.3508]
+          Corners: [[374.2019 656.0892]
+                    [366.5006 513.8680]
+                    [512.0195 514.0840]
+                    [518.4251 656.1005]]
+             Pose: [[0.0030 0.9991 -0.0435 -0.4404]
+                    [-0.9936 -0.0020 -0.1126 -0.0564]
+                    [-0.1126 0.0435 0.9927 0.9458]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.7508949451474607
+       FinalError: 0.020207661508287438
+
+[DEPTH] image 26: source=original, depth=946.2 mm, |t_depth - t_apriltag|=0.6 mm
+Reading calibration_left_image_27.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 77.42684936523438
+       Homography: [[0.0744 -0.7291 -4.9221]
+                    [0.7387 -0.0142 -6.0496]
+                    [0.0001 -0.0000 -0.0100]]
+           Center: [490.0998 602.3608]
+          Corners: [[423.4384 672.1767]
+                    [414.1085 532.5530]
+                    [557.2241 532.0601]
+                    [564.6326 670.8287]]
+             Pose: [[-0.0026 0.9989 -0.0470 -0.4164]
+                    [-0.9912 -0.0088 -0.1323 -0.0459]
+                    [-0.1325 0.0463 0.9901 0.9632]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.112776879642832
+       FinalError: 0.0035035725419484388
+
+[DEPTH] image 27: source=original, depth=962.9 mm, |t_depth - t_apriltag|=0.3 mm
+Reading calibration_left_image_28.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 76.52593994140625
+       Homography: [[0.0850 -0.7092 -5.5612]
+                    [0.7453 0.0124 -6.3914]
+                    [0.0001 0.0000 -0.0103]]
+           Center: [540.0754 620.6965]
+          Corners: [[475.4183 688.4432]
+                    [465.9391 553.0778]
+                    [605.8380 551.7914]
+                    [613.2654 687.4521]]
+             Pose: [[-0.0027 0.9988 -0.0487 -0.3910]
+                    [-0.9887 -0.0099 -0.1494 -0.0342]
+                    [-0.1497 0.0477 0.9876 0.9853]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 1.8650048566809994
+       FinalError: 0.05258292093134538
+
+[DEPTH] image 28: source=original, depth=984.2 mm, |t_depth - t_apriltag|=1.2 mm
+Reading calibration_left_image_29.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 76.16110229492188
+       Homography: [[-0.0915 0.7355 6.2661]
+                    [-0.7519 0.0194 6.7350]
+                    [-0.0001 0.0000 0.0106]]
+           Center: [592.1443 636.4465]
+          Corners: [[528.6954 702.2228]
+                    [519.8682 570.0059]
+                    [656.2198 570.0206]
+                    [662.8044 701.4017]]
+             Pose: [[0.0037 0.9990 -0.0456 -0.3635]
+                    [-0.9853 -0.0042 -0.1706 -0.0238]
+                    [-0.1706 0.0456 0.9843 1.0090]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.13711346781077913
+       FinalError: 0.005040676104642162
+
+[DEPTH] image 29: source=original, depth=1008.2 mm, |t_depth - t_apriltag|=0.9 mm
+Reading calibration_left_image_30.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 75.0645980834961
+       Homography: [[-0.0852 0.7227 7.0134]
+                    [-0.7429 0.0055 7.1188]
+                    [-0.0001 0.0000 0.0109]]
+           Center: [641.2164 650.8594]
+          Corners: [[579.4821 714.0255]
+                    [571.5942 586.7825]
+                    [703.6896 586.9371]
+                    [709.8138 713.9931]]
+             Pose: [[0.0089 0.9989 -0.0469 -0.3383]
+                    [-0.9811 -0.0004 -0.1934 -0.0138]
+                    [-0.1932 0.0478 0.9800 1.0394]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.8114268819292392
+       FinalError: 0.030996013821028408
+
+[DEPTH] image 30: source=original, depth=1037.6 mm, |t_depth - t_apriltag|=1.8 mm
+Reading calibration_left_image_31.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 74.72569274902344
+       Homography: [[0.0798 -0.7399 -7.7466]
+                    [0.7443 -0.0253 -7.4840]
+                    [0.0001 -0.0000 -0.0113]]
+           Center: [685.2771 662.0470]
+          Corners: [[624.5586 722.9555]
+                    [618.5634 599.5861]
+                    [746.4494 600.6832]
+                    [750.7509 723.3469]]
+             Pose: [[0.0155 0.9986 -0.0514 -0.3159]
+                    [-0.9814 0.0054 -0.1919 -0.0058]
+                    [-0.1913 0.0534 0.9801 1.0732]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.35880147030607906
+       FinalError: 0.015929025658766804
+
+[DEPTH] image 31: source=original, depth=1069.8 mm, |t_depth - t_apriltag|=3.5 mm
+Reading calibration_left_image_32.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 73.12316131591797
+       Homography: [[-0.0896 0.7296 8.4349]
+                    [-0.7575 0.0199 7.8600]
+                    [-0.0001 0.0000 0.0117]]
+           Center: [722.6311 673.3742]
+          Corners: [[663.3682 731.6841]
+                    [658.5629 612.4592]
+                    [782.6909 614.2800]
+                    [785.5206 733.1685]]
+             Pose: [[0.0231 0.9988 -0.0441 -0.2958]
+                    [-0.9789 0.0137 -0.2040 0.0029]
+                    [-0.2032 0.0479 0.9780 1.1042]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.11531309066208181
+       FinalError: 0.004576015493654939
+
+[DEPTH] image 32: source=original, depth=1103.8 mm, |t_depth - t_apriltag|=0.5 mm
+Reading calibration_left_image_33.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 71.75023651123047
+       Homography: [[0.0722 -0.7203 -9.0719]
+                    [0.7472 -0.0158 -8.2307]
+                    [0.0001 -0.0000 -0.0120]]
+           Center: [753.6591 683.7744]
+          Corners: [[695.4748 739.9144]
+                    [692.3453 624.4698]
+                    [812.5743 626.9291]
+                    [814.1765 742.3087]]
+             Pose: [[0.0300 0.9987 -0.0414 -0.2796]
+                    [-0.9787 0.0209 -0.2042 0.0114]
+                    [-0.2030 0.0467 0.9781 1.1369]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.7098231800727198
+       FinalError: 0.028621713018648406
+
+[DEPTH] image 33: source=original, depth=1137.6 mm, |t_depth - t_apriltag|=0.8 mm
+Reading calibration_left_image_34.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 70.32221984863281
+       Homography: [[0.0820 -0.7305 -9.6513]
+                    [0.7640 -0.0303 -8.5887]
+                    [0.0001 -0.0000 -0.0124]]
+           Center: [776.5562 691.0609]
+          Corners: [[719.7112 745.2537]
+                    [717.8145 632.9991]
+                    [834.1436 636.1604]
+                    [834.2225 748.0596]]
+             Pose: [[0.0341 0.9988 -0.0361 -0.2698]
+                    [-0.9820 0.0267 -0.1872 0.0177]
+                    [-0.1860 0.0419 0.9817 1.1741]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.018686449992735756
+       FinalError: 0.0007021833847983319
+
+[DEPTH] image 34: source=original, depth=1171.4 mm, |t_depth - t_apriltag|=2.8 mm
+Reading calibration_left_image_35.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 68.04976654052734
+       Homography: [[0.0463 -0.7354 -10.0820]
+                    [0.7333 -0.0332 -8.8948]
+                    [0.0001 -0.0000 -0.0127]]
+           Center: [791.6368 698.4214]
+          Corners: [[735.5380 751.3579]
+                    [734.6468 642.0700]
+                    [848.0405 645.1973]
+                    [847.9492 754.1027]]
+             Pose: [[0.0379 0.9979 -0.0526 -0.2638]
+                    [-0.9814 0.0273 -0.1900 0.0245]
+                    [-0.1882 0.0588 0.9804 1.2037]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.6571685537653379
+       FinalError: 0.033409639384149176
+
+[DEPTH] image 35: source=original, depth=1205.1 mm, |t_depth - t_apriltag|=1.4 mm
+Reading calibration_left_image_36.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 66.16898345947266
+       Homography: [[0.0675 -0.7336 -10.4668]
+                    [0.7594 -0.0363 -9.2167]
+                    [0.0001 -0.0000 -0.0131]]
+           Center: [799.8303 704.3010]
+          Corners: [[744.9542 755.5323]
+                    [744.8865 648.9584]
+                    [855.2946 652.5208]
+                    [853.8563 758.7191]]
+             Pose: [[0.0425 0.9977 -0.0537 -0.2642]
+                    [-0.9846 0.0326 -0.1720 0.0302]
+                    [-0.1698 0.0601 0.9836 1.2385]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.052246105711543825
+       FinalError: 0.002076789415637489
+
+[DEPTH] image 36: source=original, depth=1236.0 mm, |t_depth - t_apriltag|=2.5 mm
+Reading calibration_left_image_37.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 65.4039306640625
+       Homography: [[0.0758 -0.7205 -10.6831]
+                    [0.7671 -0.0230 -9.4722]
+                    [0.0001 -0.0000 -0.0134]]
+           Center: [799.9861 709.3053]
+          Corners: [[746.2935 759.5102]
+                    [746.1645 655.2373]
+                    [854.4637 658.3665]
+                    [852.9766 762.5384]]
+             Pose: [[0.0415 0.9974 -0.0587 -0.2695]
+                    [-0.9852 0.0311 -0.1686 0.0353]
+                    [-0.1663 0.0648 0.9839 1.2643]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.5215592238299279
+       FinalError: 0.01788103579991979
+
+[DEPTH] image 37: source=original, depth=1262.3 mm, |t_depth - t_apriltag|=2.1 mm
+Reading calibration_left_image_38.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 63.57895278930664
+       Homography: [[0.0334 -0.7398 -10.7934]
+                    [0.7293 -0.0415 -9.7111]
+                    [0.0000 -0.0000 -0.0136]]
+           Center: [792.4065 712.9518]
+          Corners: [[739.5740 762.4446]
+                    [739.6981 659.9810]
+                    [845.3777 663.3290]
+                    [844.5401 765.3450]]
+             Pose: [[0.0401 0.9979 -0.0502 -0.2819]
+                    [-0.9861 0.0314 -0.1630 0.0395]
+                    [-0.1611 0.0560 0.9853 1.2894]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.3790599792221554
+       FinalError: 0.01861319500672073
+
+[DEPTH] image 38: source=original, depth=1287.7 mm, |t_depth - t_apriltag|=1.7 mm
+Reading calibration_left_image_39.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 62.51319122314453
+       Homography: [[0.0049 -0.7479 -10.8155]
+                    [0.7030 -0.0497 -9.9269]
+                    [0.0000 -0.0000 -0.0139]]
+           Center: [780.6239 716.4874]
+          Corners: [[728.7651 765.4974]
+                    [728.8310 664.4766]
+                    [832.2318 667.7146]
+                    [832.0570 768.1370]]
+             Pose: [[0.0355 0.9987 -0.0375 -0.2978]
+                    [-0.9883 0.0295 -0.1496 0.0436]
+                    [-0.1483 0.0424 0.9880 1.3116]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 1.1799464649216251
+       FinalError: 0.06926547503710025
+
+[DEPTH] image 39: source=original, depth=1306.6 mm, |t_depth - t_apriltag|=5.1 mm
+Reading calibration_left_image_40.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 61.33770751953125
+       Homography: [[-0.0473 0.7751 10.7007]
+                    [-0.7403 0.0691 10.0786]
+                    [-0.0001 0.0001 0.0140]]
+           Center: [764.3323 719.8930]
+          Corners: [[713.0905 768.6377]
+                    [712.5430 668.6006]
+                    [815.4673 671.2499]
+                    [815.1205 770.1938]]
+             Pose: [[0.0331 0.9971 -0.0683 -0.3173]
+                    [-0.9894 0.0230 -0.1432 0.0472]
+                    [-0.1412 0.0723 0.9873 1.3300]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.426822267579958
+       FinalError: 0.021519028980759466
+
+[DEPTH] image 40: source=original, depth=1323.8 mm, |t_depth - t_apriltag|=6.4 mm
+Reading calibration_left_image_41.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 60.36715316772461
+       Homography: [[-0.0780 0.7556 10.4897]
+                    [-0.7674 0.0506 10.1976]
+                    [-0.0001 0.0001 0.0141]]
+           Center: [744.4305 723.6973]
+          Corners: [[694.1550 772.1362]
+                    [692.6198 672.7839]
+                    [795.0236 674.9523]
+                    [795.1531 773.5413]]
+             Pose: [[0.0274 0.9983 -0.0510 -0.3377]
+                    [-0.9896 0.0199 -0.1425 0.0509]
+                    [-0.1413 0.0544 0.9885 1.3369]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.5309752032859788
+       FinalError: 0.017921227895633003
+
+[DEPTH] image 41: source=original, depth=1334.6 mm, |t_depth - t_apriltag|=2.4 mm
+Reading calibration_left_image_42.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 56.95370101928711
+       Homography: [[0.0176 -0.7572 -10.2290]
+                    [0.7013 -0.0472 -10.2852]
+                    [0.0000 -0.0001 -0.0142]]
+           Center: [720.9357 724.9003]
+          Corners: [[671.3295 773.9004]
+                    [669.2499 675.0950]
+                    [770.1716 676.2658]
+                    [772.1721 774.2725]]
+             Pose: [[0.0147 0.9989 -0.0441 -0.3627]
+                    [-0.9916 0.0089 -0.1289 0.0527]
+                    [-0.1284 0.0457 0.9907 1.3472]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 1.2407487550047374
+       FinalError: 0.060052224490704346
+
+[DEPTH] image 42: source=original, depth=1343.6 mm, |t_depth - t_apriltag|=3.8 mm
+Reading calibration_left_image_43.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 56.382179260253906
+       Homography: [[-0.0779 0.7220 9.8666]
+                    [-0.7718 0.0199 10.2799]
+                    [-0.0001 0.0000 0.0142]]
+           Center: [694.7359 723.8340]
+          Corners: [[645.1454 771.7035]
+                    [643.4339 673.3511]
+                    [744.9822 675.3315]
+                    [745.2425 773.5343]]
+             Pose: [[0.0270 0.9987 -0.0431 -0.3880]
+                    [-0.9912 0.0212 -0.1305 0.0514]
+                    [-0.1295 0.0463 0.9905 1.3488]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.8928592779595865
+       FinalError: 0.020225469086788374
+
+[DEPTH] image 43: source=original, depth=1343.6 mm, |t_depth - t_apriltag|=5.4 mm
+Reading calibration_left_image_44.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 55.71064758300781
+       Homography: [[-0.0478 0.7355 9.4782]
+                    [-0.7487 0.0476 10.2300]
+                    [-0.0001 0.0000 0.0142]]
+           Center: [668.4820 721.5097]
+          Corners: [[617.9697 768.4563]
+                    [617.6003 670.0862]
+                    [719.3246 674.2561]
+                    [718.6495 772.2114]]
+             Pose: [[0.0478 0.9981 -0.0395 -0.4117]
+                    [-0.9874 0.0413 -0.1530 0.0492]
+                    [-0.1511 0.0463 0.9874 1.3442]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.011146129893304223
+       FinalError: 0.00024882522053634693
+
+[DEPTH] image 44: source=original, depth=1340.9 mm, |t_depth - t_apriltag|=3.4 mm
+Reading calibration_left_image_45.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 57.23867416381836
+       Homography: [[0.0721 -0.7543 -9.0614]
+                    [0.7792 -0.0728 -10.1761]
+                    [0.0001 -0.0001 -0.0141]]
+           Center: [641.8032 720.7534]
+          Corners: [[590.9288 767.4753]
+                    [590.5222 668.6153]
+                    [693.1187 673.6264]
+                    [691.8401 771.6268]]
+             Pose: [[0.0552 0.9975 -0.0435 -0.4355]
+                    [-0.9861 0.0476 -0.1591 0.0481]
+                    [-0.1567 0.0516 0.9863 1.3392]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 1.5080652696115764
+       FinalError: 0.03257067541683492
+
+[DEPTH] image 45: source=original, depth=1331.0 mm, |t_depth - t_apriltag|=8.6 mm
+Reading calibration_left_image_46.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 58.49027633666992
+       Homography: [[-0.0658 0.7547 8.5904]
+                    [-0.7718 0.0751 10.0271]
+                    [-0.0001 0.0001 0.0140]]
+           Center: [615.5538 718.4991]
+          Corners: [[564.1001 765.5836]
+                    [563.4762 665.7415]
+                    [667.3904 671.0643]
+                    [666.4055 770.0149]]
+             Pose: [[0.0584 0.9972 -0.0458 -0.4551]
+                    [-0.9846 0.0500 -0.1676 0.0455]
+                    [-0.1648 0.0548 0.9848 1.3240]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 1.0685791668363391
+       FinalError: 0.022196506634491703
+
+[DEPTH] image 46: source=original, depth=1319.3 mm, |t_depth - t_apriltag|=5.0 mm
+Reading calibration_left_image_47.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 58.92082977294922
+       Homography: [[-0.0653 0.7301 8.1471]
+                    [-0.7701 0.0499 9.9283]
+                    [-0.0001 0.0000 0.0138]]
+           Center: [590.3630 719.4357]
+          Corners: [[539.1579 767.3107]
+                    [537.6104 666.0638]
+                    [642.1474 671.0190]
+                    [642.1658 771.8467]]
+             Pose: [[0.0501 0.9986 -0.0156 -0.4714]
+                    [-0.9859 0.0470 -0.1608 0.0457]
+                    [-0.1598 0.0235 0.9869 1.3040]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.5086510963586582
+       FinalError: 0.008809751364520124
+
+[DEPTH] image 47: source=original, depth=1299.4 mm, |t_depth - t_apriltag|=4.9 mm
+Reading calibration_left_image_48.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 59.54814910888672
+       Homography: [[-0.0406 0.7215 7.6685]
+                    [-0.7311 0.0314 9.7019]
+                    [-0.0000 0.0000 0.0136]]
+           Center: [565.7906 715.8158]
+          Corners: [[513.9127 764.9952]
+                    [511.6847 662.3102]
+                    [618.0013 666.3210]
+                    [619.4498 768.8796]]
+             Pose: [[0.0438 0.9986 -0.0280 -0.4864]
+                    [-0.9859 0.0387 -0.1629 0.0419]
+                    [-0.1616 0.0348 0.9862 1.2839]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.9705899367973071
+       FinalError: 0.017536594907646707
+
+[DEPTH] image 48: source=original, depth=1283.1 mm, |t_depth - t_apriltag|=0.9 mm
+Reading calibration_left_image_49.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 60.29745864868164
+       Homography: [[0.0615 -0.7301 -7.2744]
+                    [0.7473 -0.0331 -9.4595]
+                    [0.0001 -0.0000 -0.0133]]
+           Center: [544.9208 708.6062]
+          Corners: [[493.3294 759.7933]
+                    [489.1714 654.8945]
+                    [596.8280 657.1057]
+                    [599.8674 761.5445]]
+             Pose: [[0.0223 0.9995 -0.0201 -0.4982]
+                    [-0.9895 0.0192 -0.1431 0.0348]
+                    [-0.1427 0.0231 0.9895 1.2656]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.25250084511239945
+       FinalError: 0.004273759755084426
+
+[DEPTH] image 49: source=original, depth=1263.2 mm, |t_depth - t_apriltag|=2.6 mm
+Reading calibration_left_image_50.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 59.46064758300781
+       Homography: [[0.0376 -0.7393 -6.9096]
+                    [0.7089 -0.0315 -9.1868]
+                    [0.0000 -0.0001 -0.0130]]
+           Center: [530.0310 704.7138]
+          Corners: [[477.6457 758.9562]
+                    [472.6848 651.0096]
+                    [582.1017 650.7972]
+                    [586.8349 757.9102]]
+             Pose: [[-0.0032 0.9997 -0.0233 -0.5014]
+                    [-0.9948 -0.0056 -0.1017 0.0308]
+                    [-0.1018 0.0229 0.9945 1.2403]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 2.413277098145614
+       FinalError: 0.052348652103697754
+
+[DEPTH] image 50: source=original, depth=1236.9 mm, |t_depth - t_apriltag|=3.7 mm
+Reading calibration_left_image_51.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 61.24259567260742
+       Homography: [[0.0453 -0.7245 -6.6100]
+                    [0.7173 -0.0098 -8.8793]
+                    [0.0000 -0.0000 -0.0127]]
+           Center: [521.4012 700.4016]
+          Corners: [[468.0691 756.6091]
+                    [462.4242 645.4877]
+                    [574.6774 644.2531]
+                    [579.9334 754.9013]]
+             Pose: [[-0.0120 0.9998 -0.0130 -0.4943]
+                    [-0.9959 -0.0131 -0.0891 0.0262]
+                    [-0.0893 0.0119 0.9959 1.2048]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 1.0083573002403756
+       FinalError: 0.01959619497032211
+
+[DEPTH] image 51: source=original, depth=1204.2 mm, |t_depth - t_apriltag|=0.7 mm
+Reading calibration_left_image_52.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 63.89559555053711
+       Homography: [[-0.0582 0.7073 6.3643]
+                    [-0.7243 -0.0158 8.5605]
+                    [-0.0000 -0.0000 0.0123]]
+           Center: [515.4392 693.3140]
+          Corners: [[461.5779 751.1525]
+                    [454.4054 637.2844]
+                    [569.6024 635.1515]
+                    [576.2140 749.1059]]
+             Pose: [[-0.0178 0.9998 -0.0059 -0.4854]
+                    [-0.9947 -0.0183 -0.1016 0.0196]
+                    [-0.1017 0.0041 0.9948 1.1713]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.5673895264899051
+       FinalError: 0.010380273519061982
+
+[DEPTH] image 52: source=original, depth=1169.6 mm, |t_depth - t_apriltag|=1.9 mm
+Reading calibration_left_image_53.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 67.6321792602539
+       Homography: [[-0.0504 0.7074 6.1687]
+                    [-0.7164 -0.0130 8.2283]
+                    [-0.0000 -0.0000 0.0120]]
+           Center: [514.3646 686.0974]
+          Corners: [[458.7186 745.5212]
+                    [451.7460 628.2364]
+                    [570.2198 626.4503]
+                    [576.8268 743.8138]]
+             Pose: [[-0.0146 0.9999 -0.0050 -0.4723]
+                    [-0.9946 -0.0150 -0.1027 0.0133]
+                    [-0.1028 0.0035 0.9947 1.1377]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 1.4267215016303785
+       FinalError: 0.027666417126521792
+
+[DEPTH] image 53: source=original, depth=1137.6 mm, |t_depth - t_apriltag|=0.2 mm
+Reading calibration_left_image_54.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 70.48542022705078
+       Homography: [[0.0659 -0.7266 -6.0477]
+                    [0.7326 -0.0054 -7.8706]
+                    [0.0000 -0.0000 -0.0116]]
+           Center: [520.3893 677.2468]
+          Corners: [[463.1182 739.1387]
+                    [455.1874 617.8085]
+                    [577.7661 615.2407]
+                    [584.7402 735.9093]]
+             Pose: [[-0.0227 0.9997 -0.0136 -0.4543]
+                    [-0.9953 -0.0238 -0.0934 0.0059]
+                    [-0.0937 0.0114 0.9955 1.1052]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.8598722056715756
+       FinalError: 0.020537187600696744
+
+[DEPTH] image 54: source=original, depth=1103.8 mm, |t_depth - t_apriltag|=1.6 mm
+Reading calibration_left_image_55.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 73.9198989868164
+       Homography: [[-0.0741 0.7092 6.0071]
+                    [-0.7312 -0.0267 7.5168]
+                    [-0.0000 -0.0000 0.0113]]
+           Center: [533.3000 667.3366]
+          Corners: [[474.9098 731.5273]
+                    [465.5040 607.0670]
+                    [592.1862 602.6007]
+                    [600.5911 727.1573]]
+             Pose: [[-0.0331 0.9991 -0.0258 -0.4314]
+                    [-0.9949 -0.0354 -0.0940 -0.0018]
+                    [-0.0948 0.0226 0.9952 1.0739]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.26726941916913527
+       FinalError: 0.006442307812370814
+
+[DEPTH] image 55: source=original, depth=1072.6 mm, |t_depth - t_apriltag|=1.4 mm
+Reading calibration_left_image_56.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 76.09538269042969
+       Homography: [[0.0718 -0.7254 -6.0253]
+                    [0.7235 0.0114 -7.1655]
+                    [0.0000 -0.0000 -0.0109]]
+           Center: [551.0215 655.2952]
+          Corners: [[490.9660 722.0891]
+                    [480.8186 593.5158]
+                    [611.1470 588.4236]
+                    [620.4386 716.3830]]
+             Pose: [[-0.0398 0.9988 -0.0298 -0.4063]
+                    [-0.9950 -0.0424 -0.0900 -0.0106]
+                    [-0.0912 0.0261 0.9955 1.0436]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.3846713069725166
+       FinalError: 0.011952883241667931
+
+[DEPTH] image 56: source=original, depth=1042.2 mm, |t_depth - t_apriltag|=1.5 mm
+Reading calibration_left_image_57.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 77.61064147949219
+       Homography: [[0.0699 -0.7080 -6.0939]
+                    [0.7209 0.0341 -6.8222]
+                    [0.0000 0.0000 -0.0106]]
+           Center: [572.9113 641.3863]
+          Corners: [[511.2601 710.0786]
+                    [501.0459 578.2823]
+                    [634.9625 572.2484]
+                    [644.4139 704.1716]]
+             Pose: [[-0.0433 0.9985 -0.0329 -0.3797]
+                    [-0.9956 -0.0458 -0.0814 -0.0203]
+                    [-0.0828 0.0292 0.9961 1.0161]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.5558366825967772
+       FinalError: 0.018348378530147817
+
+[DEPTH] image 57: source=original, depth=1014.6 mm, |t_depth - t_apriltag|=1.6 mm
+Reading calibration_left_image_58.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 78.85325622558594
+       Homography: [[-0.0613 0.7327 6.1947]
+                    [-0.7154 -0.0060 6.4874]
+                    [-0.0000 0.0000 0.0104]]
+           Center: [597.6212 625.8552]
+          Corners: [[533.6560 696.5027]
+                    [524.0344 560.6442]
+                    [661.3932 555.4210]
+                    [670.3643 690.3185]]
+             Pose: [[-0.0406 0.9984 -0.0393 -0.3534]
+                    [-0.9961 -0.0435 -0.0762 -0.0307]
+                    [-0.0778 0.0360 0.9963 0.9915]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.6204331754461695
+       FinalError: 0.029354206093411907
+
+[DEPTH] image 58: source=original, depth=988.8 mm, |t_depth - t_apriltag|=2.9 mm
+Reading calibration_left_image_59.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 79.48031616210938
+       Homography: [[0.0492 -0.7120 -6.3067]
+                    [0.7118 0.0233 -6.1666]
+                    [0.0000 -0.0000 -0.0101]]
+           Center: [621.8864 608.0788]
+          Corners: [[555.7988 679.6624]
+                    [547.8163 541.1635]
+                    [688.1484 536.3063]
+                    [695.6893 674.7527]]
+             Pose: [[-0.0348 0.9986 -0.0401 -0.3290]
+                    [-0.9975 -0.0372 -0.0606 -0.0422]
+                    [-0.0620 0.0379 0.9974 0.9704]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.5294543609446928
+       FinalError: 0.02490388467474479
+
+[DEPTH] image 59: source=original, depth=968.4 mm, |t_depth - t_apriltag|=2.0 mm
+Reading calibration_left_image_60.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 79.58981323242188
+       Homography: [[0.0452 -0.7317 -6.4411]
+                    [0.7127 0.0032 -5.8815]
+                    [0.0000 -0.0000 -0.0100]]
+           Center: [647.1122 590.8910]
+          Corners: [[579.0590 663.8770]
+                    [571.9467 522.2430]
+                    [714.9482 518.1381]
+                    [721.5229 658.8497]]
+             Pose: [[-0.0328 0.9984 -0.0453 -0.3063]
+                    [-0.9983 -0.0349 -0.0470 -0.0531]
+                    [-0.0485 0.0436 0.9979 0.9531]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.14608991033590335
+       FinalError: 0.009470604607419313
+
+[DEPTH] image 60: source=original, depth=950.9 mm, |t_depth - t_apriltag|=2.3 mm
+Reading calibration_left_image_61.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 79.53495025634766
+       Homography: [[0.0386 -0.7230 -6.5929]
+                    [0.7082 0.0117 -5.6401]
+                    [0.0000 -0.0000 -0.0098]]
+           Center: [670.7844 573.8480]
+          Corners: [[601.7579 647.7388]
+                    [595.0106 504.4431]
+                    [739.6715 500.1064]
+                    [746.1208 642.8524]]
+             Pose: [[-0.0337 0.9984 -0.0451 -0.2866]
+                    [-0.9986 -0.0355 -0.0386 -0.0637]
+                    [-0.0402 0.0437 0.9982 0.9409]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.1030054500203173
+       FinalError: 0.007049322541997342
+
+[DEPTH] image 61: source=original, depth=937.9 mm, |t_depth - t_apriltag|=3.1 mm
+Reading calibration_left_image_62.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 78.93820190429688
+       Homography: [[-0.0328 0.7220 6.7300]
+                    [-0.7032 -0.0154 5.4195]
+                    [-0.0000 0.0000 0.0097]]
+           Center: [690.7993 556.2852]
+          Corners: [[621.1734 631.1812]
+                    [614.4480 486.5735]
+                    [760.1754 481.6579]
+                    [766.8714 625.7421]]
+             Pose: [[-0.0385 0.9983 -0.0429 -0.2707]
+                    [-0.9989 -0.0396 -0.0252 -0.0747]
+                    [-0.0268 0.0419 0.9988 0.9320]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.15420654123768437
+       FinalError: 0.011130208780732988
+
+[DEPTH] image 62: source=original, depth=929.5 mm, |t_depth - t_apriltag|=2.5 mm
+Reading calibration_left_image_63.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 1
+         Goodness: 0.0
+  Decision margin: 78.28702545166016
+       Homography: [[-0.0395 0.7294 6.8546]
+                    [-0.7031 -0.0177 5.2430]
+                    [-0.0000 0.0000 0.0097]]
+           Center: [704.4261 538.8023]
+          Corners: [[635.1733 614.4726]
+                    [627.2906 469.7641]
+                    [773.3210 463.5231]
+                    [781.1022 607.4293]]
+             Pose: [[-0.0502 0.9974 -0.0515 -0.2615]
+                    [-0.9986 -0.0508 -0.0117 -0.0862]
+                    [-0.0143 0.0509 0.9986 0.9313]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.022684678494759563
+       FinalError: 0.001836453893696946
+
+[DEPTH] image 63: source=original, depth=928.6 mm, |t_depth - t_apriltag|=2.8 mm
+Reading calibration_left_image_64.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 1
+         Goodness: 0.0
+  Decision margin: 77.924072265625
+       Homography: [[-0.0505 0.7232 6.9626]
+                    [-0.7048 -0.0297 5.0992]
+                    [-0.0000 0.0000 0.0097]]
+           Center: [714.5963 523.3547]
+          Corners: [[646.5240 599.6395]
+                    [636.7891 455.2138]
+                    [782.4651 447.2979]
+                    [792.0123 591.1529]]
+             Pose: [[-0.0611 0.9969 -0.0489 -0.2551]
+                    [-0.9979 -0.0620 -0.0178 -0.0965]
+                    [-0.0208 0.0477 0.9986 0.9324]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.034867838479223125
+       FinalError: 0.002776934952681356
+
+[DEPTH] image 64: source=original, depth=930.5 mm, |t_depth - t_apriltag|=2.0 mm
+Reading calibration_left_image_65.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 2
+         Goodness: 0.0
+  Decision margin: 76.94790649414062
+       Homography: [[-0.0509 0.7256 7.0148]
+                    [-0.7078 -0.0218 4.9789]
+                    [-0.0000 0.0000 0.0098]]
+           Center: [716.8730 508.8221]
+          Corners: [[648.7347 584.1155]
+                    [639.6636 440.1951]
+                    [784.8389 433.7192]
+                    [793.5662 576.9902]]
+             Pose: [[-0.0519 0.9971 -0.0564 -0.2551]
+                    [-0.9980 -0.0539 -0.0336 -0.1067]
+                    [-0.0366 0.0546 0.9978 0.9378]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.05925869277453683
+       FinalError: 0.005028994947752087
+
+[DEPTH] image 65: source=original, depth=936.0 mm, |t_depth - t_apriltag|=1.9 mm
+Reading calibration_left_image_66.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 1
+         Goodness: 0.0
+  Decision margin: 75.67963409423828
+       Homography: [[0.0466 -0.7317 -7.0286]
+                    [0.7082 0.0092 -4.9068]
+                    [0.0000 -0.0000 -0.0099]]
+           Center: [713.0993 497.8294]
+          Corners: [[644.9009 571.7734]
+                    [636.8130 428.7193]
+                    [781.0219 424.1847]
+                    [788.7465 566.3606]]
+             Pose: [[-0.0396 0.9970 -0.0665 -0.2600]
+                    [-0.9976 -0.0433 -0.0542 -0.1150]
+                    [-0.0569 0.0642 0.9963 0.9466]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.19932164760207136
+       FinalError: 0.01808250879552704
+
+[DEPTH] image 66: source=original, depth=943.4 mm, |t_depth - t_apriltag|=3.3 mm
+Reading calibration_left_image_67.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 1
+         Goodness: 0.0
+  Decision margin: 75.36341857910156
+       Homography: [[-0.0597 0.7302 7.0149]
+                    [-0.7204 -0.0026 4.8487]
+                    [-0.0000 0.0000 0.0100]]
+           Center: [702.1821 485.3548]
+          Corners: [[634.8261 557.5156]
+                    [627.1353 416.1678]
+                    [769.5900 413.1384]
+                    [776.2721 553.6599]]
+             Pose: [[-0.0275 0.9977 -0.0615 -0.2712]
+                    [-0.9961 -0.0325 -0.0821 -0.1251]
+                    [-0.0839 0.0590 0.9947 0.9603]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.036329010045752105
+       FinalError: 0.003161697829031439
+
+[DEPTH] image 67: source=original, depth=959.2 mm, |t_depth - t_apriltag|=1.2 mm
+Reading calibration_left_image_68.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 74.28170776367188
+       Homography: [[0.0710 -0.7177 -6.9867]
+                    [0.7282 0.0028 -4.8135]
+                    [0.0001 -0.0000 -0.0102]]
+           Center: [687.2948 473.5085]
+          Corners: [[621.3513 543.3930]
+                    [613.5452 404.6799]
+                    [753.7337 403.0990]
+                    [760.1284 541.4821]]
+             Pose: [[-0.0135 0.9980 -0.0622 -0.2866]
+                    [-0.9915 -0.0214 -0.1284 -0.1357]
+                    [-0.1294 0.0600 0.9898 0.9788]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.3285999408070379
+       FinalError: 0.024091015479566817
+
+[DEPTH] image 68: source=original, depth=977.7 mm, |t_depth - t_apriltag|=1.2 mm
+Reading calibration_left_image_69.png...
+
+Detected 1 tags
+
+Detection 1 of 1:
+
+           Family: b'tag36h11'
+               ID: 3
+    Hamming error: 0
+         Goodness: 0.0
+  Decision margin: 72.5573959350586
+       Homography: [[0.0871 -0.7366 -6.9551]
+                    [0.7372 -0.0161 -4.8567]
+                    [0.0001 -0.0000 -0.0104]]
+           Center: [667.1804 465.8897]
+          Corners: [[603.0732 533.4651]
+                    [594.6049 397.9388]
+                    [731.6738 397.9073]
+                    [738.2011 532.3849]]
+             Pose: [[-0.0023 0.9977 -0.0683 -0.3088]
+                    [-0.9847 -0.0141 -0.1736 -0.1448]
+                    [-0.1742 0.0668 0.9824 1.0054]
+                    [0.0000 0.0000 0.0000 1.0000]]
+        InitError: 0.14524577760395196
+       FinalError: 0.010888746761509296
+
+[DEPTH] image 69: source=original, depth=1004.5 mm, |t_depth - t_apriltag|=1.0 mm
+
+[INFO] Build pairs summary
+  valid pairs      : 65
+  no detection     : 5
+  no valid depth   : 0
+  valid image ids  : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69]
+[INFO] SE3 mean init index: 13, closest to median translation
+[INFO] SE3 mean converged at iter 2
+
+[INFO] Initial X_cam_base from per-frame SE3 mean:
+[[0.9994 -0.0340 -0.0058 -0.6090]
+ [-0.0099 -0.1237 -0.9923 0.2251]
+ [0.0331 0.9917 -0.1240 1.5018]
+ [0.0000 0.0000 0.0000 1.0000]]
+[INFO] Initial inverse X_base_cam:
+[[0.9994 -0.0099 0.0331 0.5612]
+ [-0.0340 -0.1237 0.9917 -1.4823]
+ [-0.0058 -0.9923 -0.1240 0.4060]
+ [0.0000 0.0000 0.0000 1.0000]]
+
+==========================================================================================
+[Initial SE3-mean residual report]
+==========================================================================================
+image_index | trans_err_mm | rot_err_deg | status
+------------------------------------------------------------------------------------------
+          0 |         3.41 |       0.357 | ok
+          1 |         6.10 |       0.502 | ok
+          2 |         6.04 |       0.331 | ok
+          3 |         6.40 |       0.510 | ok
+          4 |         6.02 |       0.700 | ok
+          5 |         6.54 |       0.532 | ok
+          6 |         5.64 |       0.486 | ok
+          7 |         5.79 |       0.596 | ok
+          8 |         5.46 |       0.677 | ok
+          9 |         4.56 |       0.907 | ok
+         10 |         2.05 |       0.508 | ok
+         11 |         2.63 |       0.859 | ok
+         12 |         1.59 |       0.261 | ok
+         13 |         0.75 |       0.075 | ok
+         14 |         1.21 |       0.126 | ok
+         15 |         2.03 |       0.364 | ok
+         16 |         1.97 |       0.336 | ok
+         17 |         1.65 |       0.344 | ok
+         18 |         2.71 |       0.338 | ok
+         19 |         2.30 |       0.453 | ok
+         20 |         2.55 |       0.453 | ok
+         26 |         2.99 |       0.545 | ok
+         27 |         3.22 |       0.562 | ok
+         28 |         2.50 |       0.676 | ok
+         29 |         2.93 |       0.348 | ok
+         30 |         2.19 |       0.268 | ok
+         31 |         1.38 |       0.343 | ok
+         32 |         0.74 |       0.564 | ok
+         33 |         1.43 |       0.884 | ok
+         34 |         2.08 |       0.713 | ok
+         35 |         2.90 |       0.709 | ok
+         36 |         3.77 |       0.703 | ok
+         37 |         4.47 |       0.841 | ok
+         38 |         4.66 |       0.592 | ok
+         39 |         4.06 |       1.261 | ok
+         40 |         4.03 |       1.039 | ok
+         41 |         3.81 |       0.795 | ok
+         42 |         3.74 |       0.640 | ok
+         43 |         2.93 |       0.555 | ok
+         44 |         3.51 |       0.360 | ok
+         45 |         0.83 |       0.472 | ok
+         46 |         0.99 |       0.742 | ok
+         47 |         1.29 |       0.824 | ok
+         48 |         1.27 |       0.397 | ok
+         49 |         1.35 |       0.421 | ok
+         50 |         2.11 |       0.386 | ok
+         51 |         2.15 |       0.562 | ok
+         52 |         4.25 |       0.604 | ok
+         53 |         2.16 |       0.545 | ok
+         54 |         3.26 |       0.642 | ok
+         55 |         2.46 |       0.428 | ok
+         56 |         2.94 |       0.367 | ok
+         57 |         2.71 |       0.395 | ok
+         58 |         3.43 |       0.224 | ok
+         59 |         3.21 |       0.237 | ok
+         60 |         3.35 |       0.280 | ok
+         61 |         3.65 |       0.219 | ok
+         62 |         4.37 |       0.203 | ok
+         63 |         3.85 |       0.294 | ok
+         64 |         3.76 |       0.153 | ok
+         65 |         3.54 |       0.202 | ok
+         66 |         4.34 |       0.513 | ok
+         67 |         3.69 |       0.312 | ok
+         68 |         3.58 |       0.342 | ok
+         69 |         3.01 |       0.527 | ok
+------------------------------------------------------------------------------------------
+Translation error mean/std/max: 3.17 / 1.46 / 6.54 mm   [ALL 65 frames]
+Rotation error mean/std/max: 0.499 / 0.228 / 1.261 deg   [ALL 65 frames]
+[INFO] no outliers by this rule
+
+[INFO] Starting nonlinear least_squares optimization...
+[INFO] Variable: X_cam_base = X_init @ exp(xi)
+[INFO] robust_loss: huber
+[INFO] f_scale: 10.0
+[INFO] rot_weight: 573.0
+[INFO] trans_weight: 1000.0
+   Iteration     Total nfev        Cost      Cost reduction    Step norm     Optimality   
+       0              1         1.3717e+03                                    2.23e+04    
+       1              2         1.3571e+03      1.46e+01       1.13e-03       2.54e-01    
+       2              3         1.3571e+03      1.57e-09       1.25e-08       1.63e-02    
+`ftol` termination condition is satisfied.
+Function evaluations 3, initial cost 1.3717e+03, final cost 1.3571e+03, first-order optimality 1.63e-02.
+
+[INFO] Optimization result
+  success: True
+  message: `ftol` termination condition is satisfied.
+  nfev: 3
+  cost: 1357.107673374121
+  xi_update: [-0.0001 0.0003 0.0009 -0.0004 -0.0003 -0.0003]
+
+[INFO] Optimized X_cam_base:
+[[0.9994 -0.0350 -0.0055 -0.6094]
+ [-0.0098 -0.1236 -0.9923 0.2255]
+ [0.0340 0.9917 -0.1239 1.5016]
+ [0.0000 0.0000 0.0000 1.0000]]
+[INFO] Optimized inverse X_base_cam:
+[[0.9994 -0.0098 0.0340 0.5601]
+ [-0.0350 -0.1236 0.9917 -1.4826]
+ [-0.0055 -0.9923 -0.1239 0.4064]
+ [0.0000 0.0000 0.0000 1.0000]]
+
+==========================================================================================
+[Optimized nonlinear residual report]
+==========================================================================================
+image_index | trans_err_mm | rot_err_deg | status
+------------------------------------------------------------------------------------------
+          0 |         3.44 |       0.393 | ok
+          1 |         6.00 |       0.488 | ok
+          2 |         5.92 |       0.332 | ok
+          3 |         6.26 |       0.491 | ok
+          4 |         5.85 |       0.690 | ok
+          5 |         6.35 |       0.523 | ok
+          6 |         5.44 |       0.476 | ok
+          7 |         5.61 |       0.627 | ok
+          8 |         5.29 |       0.663 | ok
+          9 |         4.41 |       0.873 | ok
+         10 |         1.88 |       0.540 | ok
+         11 |         2.53 |       0.864 | ok
+         12 |         1.47 |       0.274 | ok
+         13 |         0.64 |       0.049 | ok
+         14 |         1.18 |       0.169 | ok
+         15 |         1.94 |       0.344 | ok
+         16 |         1.91 |       0.326 | ok
+         17 |         1.54 |       0.357 | ok
+         18 |         2.56 |       0.353 | ok
+         19 |         2.14 |       0.459 | ok
+         20 |         2.36 |       0.460 | ok
+         26 |         2.82 |       0.566 | ok
+         27 |         3.08 |       0.570 | ok
+         28 |         2.37 |       0.682 | ok
+         29 |         2.85 |       0.375 | ok
+         30 |         2.17 |       0.291 | ok
+         31 |         1.44 |       0.308 | ok
+         32 |         0.79 |       0.580 | ok
+         33 |         1.34 |       0.900 | ok
+         34 |         1.98 |       0.755 | ok
+         35 |         2.74 |       0.680 | ok
+         36 |         3.58 |       0.671 | ok
+         37 |         4.24 |       0.798 | ok
+         38 |         4.42 |       0.596 | ok
+         39 |         3.82 |       1.307 | ok
+         40 |         3.76 |       0.989 | ok
+         41 |         3.52 |       0.783 | ok
+         42 |         3.47 |       0.653 | ok
+         43 |         2.67 |       0.564 | ok
+         44 |         3.35 |       0.390 | ok
+         45 |         0.53 |       0.442 | ok
+         46 |         0.92 |       0.689 | ok
+         47 |         1.28 |       0.875 | ok
+         48 |         1.46 |       0.378 | ok
+         49 |         1.46 |       0.457 | ok
+         50 |         2.19 |       0.389 | ok
+         51 |         2.20 |       0.590 | ok
+         52 |         4.22 |       0.651 | ok
+         53 |         2.15 |       0.586 | ok
+         54 |         3.22 |       0.673 | ok
+         55 |         2.40 |       0.465 | ok
+         56 |         2.90 |       0.397 | ok
+         57 |         2.68 |       0.430 | ok
+         58 |         3.36 |       0.224 | ok
+         59 |         3.16 |       0.265 | ok
+         60 |         3.30 |       0.265 | ok
+         61 |         3.59 |       0.191 | ok
+         62 |         4.31 |       0.233 | ok
+         63 |         3.80 |       0.272 | ok
+         64 |         3.71 |       0.197 | ok
+         65 |         3.47 |       0.193 | ok
+         66 |         4.29 |       0.463 | ok
+         67 |         3.62 |       0.295 | ok
+         68 |         3.52 |       0.323 | ok
+         69 |         2.94 |       0.483 | ok
+------------------------------------------------------------------------------------------
+Translation error mean/std/max: 3.07 / 1.43 / 6.35 mm   [ALL 65 frames]
+Rotation error mean/std/max: 0.502 / 0.227 / 1.307 deg   [ALL 65 frames]
+[INFO] no outliers by this rule
+
+[SAVED]
+Saved nonlinear optimized matrix to:
+  /home/yizhouch/move_some_robots/crisp_env/crisp_py/hand_to_eye_calibration/roahm-deformable-objects/zsy-testmycode/results/zed_calib_fs_002/base2cam_transform_left_nonlinear_opt_depth_translation_ffs.npz
+Saved summary to:
+  /home/yizhouch/move_some_robots/crisp_env/crisp_py/hand_to_eye_calibration/roahm-deformable-objects/zsy-testmycode/results/zed_calib_fs_002/summary_left_nonlinear_opt_depth_translation_ffs.txt
+[INFO] Loaded depth stack: /home/yizhouch/move_some_robots/crisp_env/crisp_py/hand_to_eye_calibration/roahm-deformable-objects/captured_calibration_data/zed_calib_fs_002/left_calibration_rgbd_ffs.npz, shape=(72, 1242, 2208)
+[INFO] depth back-projection intrinsics: fx=1414.575439 fy=1414.575439 cx=1101.675415 cy=669.754150
+
+[WORST] saving 1 worst frame(s) by metric=combined to /home/yizhouch/move_some_robots/crisp_env/crisp_py/hand_to_eye_calibration/roahm-deformable-objects/zsy-testmycode/results/zed_calib_fs_002/worst_case
+  worst1_left_depth_translation_ffs_image005_annotated.png
+  worst1_left_depth_translation_ffs_image005_cloud.ply  (648781 points, stride=2)
+  worst1_left_depth_translation_ffs_image005_info.txt
+
+[IMPORTANT]
+This saved matrix follows the same convention as the old calculate_base_to_cam output.
+Your dual_green_pick.py currently loads T_saved and uses inv(T_saved) as camera_to_base.
+So if you want to test this matrix in dual_green_pick.py, point TRANSFORM_PATH to the npz above.
+[PLOT] error distribution saved to: /home/yizhouch/move_some_robots/crisp_env/crisp_py/hand_to_eye_calibration/roahm-deformable-objects/zsy-testmycode/results/zed_calib_fs_002/error_distribution_left_nonlinear_opt_depth_translation_ffs.png
